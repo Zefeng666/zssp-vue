@@ -256,24 +256,6 @@ export default [
     }]
   },
   {
-    path: '/idcard_review',
-    name: 'idcard_review',
-    meta: {
-      hide: true
-    },
-    component: Main,
-    children: [{
-      path: 'idcard_review_page',
-      name: 'idcard_review_page',
-      meta: {
-        icon: 'ios-card',
-        title: '身份证审核'
-      },
-      component: () =>
-        import('@/view/idcard-review/idcard-review.vue')
-    }]
-  },
-  {
     path: '/withdrawal_application',
     name: 'withdrawal_application',
     meta: {
@@ -289,6 +271,24 @@ export default [
       },
       component: () =>
         import('@/view/withdrawal-application/withdrawal-application.vue')
+    }]
+  },
+  {
+    path: '/idcard_review',
+    name: 'idcard_review',
+    meta: {
+      hide: true
+    },
+    component: Main,
+    children: [{
+      path: 'idcard_review_page',
+      name: 'idcard_review_page',
+      meta: {
+        icon: 'ios-card',
+        title: '身份证审核'
+      },
+      component: () =>
+        import('@/view/idcard-review/idcard-review.vue')
     }]
   },
   // {
