@@ -1,6 +1,24 @@
 <template>
   <div>
     <Table :columns='columns1' :data='data1' size='large'></Table>
+    <Page style="margin-top: 10px;" :total="100" show-total />
+    <Modal
+        title="哈哈哈哈"
+        v-model="modalFlag"
+        :mask-closable="false"
+        width="800"
+        cancel-text=''>
+        <Tabs type="card">
+            <TabPane label="用户地址">
+              <Table :columns='columns2' :data='data2' size='small'></Table>
+              <Page style="margin-top: 10px;" :total="100" show-total size='small'/>
+            </TabPane>
+            <TabPane label="银行卡">
+              <Table :columns='columns2' :data='data2' size='small'></Table>
+              <Page style="margin-top: 10px;" :total="100" show-total size='small'/>
+            </TabPane>
+        </Tabs>
+    </Modal>
   </div>
 </template>
 
@@ -9,6 +27,7 @@ export default {
   name: 'user_list_page',
   data () {
     return {
+      modalFlag: false,
       columns1: [
         {
           title: '头像',
@@ -53,7 +72,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      // this.show(params.index);
+                      this.modalFlag = true
                     }
                   }
                 },
@@ -68,7 +87,13 @@ export default {
                   },
                   on: {
                     click: () => {
-                      // this.remove(params.index);
+                      this.$Modal.confirm({
+                        title: '警告',
+                        content: '确定要删除吗？',
+                        onOk: () => {
+                          this.$Message.success('删除成功！')
+                        }
+                      })
                     }
                   }
                 },
@@ -79,6 +104,45 @@ export default {
         }
       ],
       data1: [
+        {
+          avator: '',
+          name: 'John Brown',
+          level: 'ceo',
+          point: 18,
+          phone: '17888888888',
+          date: '2016-10-03'
+        },
+        {
+          avator: '',
+          name: 'Jim Green',
+          level: 'ceo',
+          point: 24,
+          phone: '17666666666',
+          date: '2016-10-01'
+        }
+      ],
+      columns2: [
+        {
+          title: '联系人',
+          key: 'name',
+          width: 150
+        },
+        {
+          title: '联系电话',
+          key: 'phone',
+          width: 150
+        },
+        {
+          title: '地址',
+          key: 'address'
+        },
+        {
+          title: '是否默认',
+          key: 'default',
+          width: 100
+        }
+      ],
+      data2: [
         {
           avator: '',
           name: 'John Brown',

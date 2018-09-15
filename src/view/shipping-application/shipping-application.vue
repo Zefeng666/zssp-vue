@@ -32,7 +32,8 @@ export default {
         },
         {
           title: '发货地址',
-          key: 'deliveryAddress'
+          key: 'deliveryAddress',
+          width: 400
         },
         {
           title: '编辑',
