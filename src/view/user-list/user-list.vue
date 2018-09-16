@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Table :columns='columns1' :data='data1' size='large'></Table>
-    <Page style="margin-top: 10px;" :total="100" show-total />
+    <Table :columns='columns1' :data='userList' size='large'></Table>
+    <Page style="margin-top: 10px;" :total="queryObj.totalCount" show-total />
     <Modal
         title="哈哈哈哈"
         v-model="modalFlag"
@@ -28,6 +28,8 @@ export default {
   data () {
     return {
       modalFlag: false,
+      userList: [],
+      queryObj: {},
       columns1: [
         {
           title: '头像',
@@ -35,23 +37,26 @@ export default {
         },
         {
           title: '用户名',
-          key: 'name'
+          key: 'username'
         },
         {
           title: '会员等级',
-          key: 'level'
+          key: 'vipLevel'
         },
         {
           title: '积分',
-          key: 'point'
+          key: 'integral'
         },
         {
           title: '手机号',
-          key: 'phone'
+          key: 'mobile'
         },
         {
           title: '创建时间',
-          key: 'date'
+          key: 'createTime',
+          render: (h, params) => {
+            return h('div', {}, params.row.createTime.substr(0, 10))
+          }
         },
         {
           title: '编辑',
@@ -103,24 +108,6 @@ export default {
           }
         }
       ],
-      data1: [
-        {
-          avator: '',
-          name: 'John Brown',
-          level: 'ceo',
-          point: 18,
-          phone: '17888888888',
-          date: '2016-10-03'
-        },
-        {
-          avator: '',
-          name: 'Jim Green',
-          level: 'ceo',
-          point: 24,
-          phone: '17666666666',
-          date: '2016-10-01'
-        }
-      ],
       columns2: [
         {
           title: '联系人',
@@ -165,7 +152,22 @@ export default {
   methods: {
     showModal () {
       this.modalVisible = true
+    },
+    queryUser () {
+      this.$api
+        .queryUser({})
+        .then(data => {
+          if (data.code === 200) {
+            this.userList = data.data.items
+            this.queryObj = data.data
+          } else {
+            console.log(data)
+          }
+        })
     }
+  },
+  created () {
+    this.queryUser()
   }
 }
 </script>

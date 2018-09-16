@@ -24,6 +24,9 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
+// 引入axios
+import API from './api/api'
+Vue.prototype.$api = API;
 /**
  * 注册指令
  */
