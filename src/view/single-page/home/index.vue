@@ -1,49 +1,5 @@
 <template>
   <div>
-    <!-- <Row :gutter="20">
-      <i-col span="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;">
-        <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-          <count-to :end="infor.count" count-class="count-style"/>
-          <p>{{ infor.title }}</p>
-        </infor-card>
-      </i-col>
-    </Row> -->
-    <!-- <Row style="padding:20px">
-        <Col span="11">
-            <Card :bordered="false">
-              <div style="text-align:center">
-                  <count-to :end="200" count-class="count-style"/>
-                  <h3>新增用户</h3>
-              </div>
-            </Card>
-        </Col>
-        <Col span="11" offset="2">
-            <Card :bordered="false">
-              <div style="text-align:center">
-                  <count-to :end="200" count-class="count-style"/>
-                  <h3>新增用户</h3>
-              </div>
-            </Card>
-        </Col>
-    </Row>
-    <Row style="padding:20px">
-        <Col span="11">
-            <Card :bordered="false">
-              <div style="text-align:center">
-                  <count-to :end="200" count-class="count-style"/>
-                  <h3>新增用户</h3>
-              </div>
-            </Card>
-        </Col>
-        <Col span="11" offset="2">
-            <Card :bordered="false">
-              <div style="text-align:center">
-                  <count-to :end="200" count-class="count-style"/>
-                  <h3>新增用户</h3>
-              </div>
-            </Card>
-        </Col>
-    </Row> -->
     <Row style="padding:20px" :gutter="16">
         <i-col span="6" class="padding-left-10">
           <Card>

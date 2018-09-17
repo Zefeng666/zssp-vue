@@ -3,7 +3,7 @@
     <Table :columns='columns1' :data='userList' size='large'></Table>
     <Page style="margin-top: 10px;" :total="queryObj.totalCount" show-total />
     <Modal
-        title="哈哈哈哈"
+        title="查看用户"
         v-model="modalFlag"
         :mask-closable="false"
         width="800"
@@ -30,6 +30,7 @@ export default {
       modalFlag: false,
       userList: [],
       queryObj: {},
+      viewUserObj: {},
       columns1: [
         {
           title: '头像',
@@ -77,6 +78,7 @@ export default {
                   },
                   on: {
                     click: () => {
+                      this.queryUserByUid(params.row.uid)
                       this.modalFlag = true
                     }
                   }
@@ -160,6 +162,20 @@ export default {
           if (data.code === 200) {
             this.userList = data.data.items
             this.queryObj = data.data
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    queryUserByUid (uid) {
+      this.$api
+        .queryUserByUid({
+          uid: uid
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.viewUserObj = data.data.userInfo
+            console.log(this.viewUserObj)
           } else {
             console.log(data)
           }

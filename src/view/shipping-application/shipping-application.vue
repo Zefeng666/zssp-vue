@@ -28,12 +28,13 @@ export default {
         },
         {
           title: '联系电话',
-          key: 'phone'
+          key: 'phone',
+          width: 130
         },
         {
           title: '发货地址',
           key: 'deliveryAddress',
-          width: 400
+          width: 300
         },
         {
           title: '编辑',
@@ -100,9 +101,24 @@ export default {
     }
   },
   methods: {
-    showModal () {
-      // this.modalVisible = true;
+    queryOrder () {
+      this.$api
+        .queryOrder({
+          pageNo: 1,
+          pageSize: 10
+        })
+        .then(data => {
+          if (data.code === 200) {
+            // this.viewUserObj = data.data.userInfo
+            console.log(data)
+          } else {
+            console.log(data)
+          }
+        })
     }
+  },
+  created () {
+    this.queryOrder()
   }
 }
 </script>
