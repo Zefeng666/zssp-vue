@@ -10,7 +10,7 @@ export default {
   name: 'withdrawal_application_page',
   data () {
     return {
-      totalCount: '',
+      totalCount: 0,
       withdrawListLoading: true,
       withdrawColumns: [
         {

@@ -35,13 +35,16 @@ export default {
       //     })
       //   })
       // })
+      // return console.log(userName, password);
+
       this.$api
-        .auditWithdraw({
+        .userLogin({
           username: userName,
           password: password
         })
         .then(data => {
           if (data.code === 200) {
+            localStorage.setItem('token', data.data.jwt)
             this.$router.push({
               name: 'home'
             })

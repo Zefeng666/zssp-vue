@@ -4,7 +4,7 @@ const request = config.request
 const API = {
 
   // 登录
-  queryLogin (params) {
+  userLogin (params) {
     return request({
       url: '/login',
       params: params

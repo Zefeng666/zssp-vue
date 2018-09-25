@@ -10,7 +10,7 @@ export default {
   name: 'shipping_application_page',
   data () {
     return {
-      totalCount: '',
+      totalCount: 0,
       orderListLoading: true,
       orderColumns: [
         {
