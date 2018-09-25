@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Table :columns='columns1' :data='data1' size='large'></Table>
+    <Table :loading="orderListLoading" :columns='orderColumns' :data='orderData' size='large'></Table>
+    <Page style="margin-top: 10px;" :total="totalCount" show-total @on-change="changePage" />
   </div>
 </template>
 
@@ -9,32 +10,59 @@ export default {
   name: 'shipping_application_page',
   data () {
     return {
-      columns1: [
+      totalCount: '',
+      orderListLoading: true,
+      orderColumns: [
         {
           title: '用户名',
-          key: 'name'
+          key: 'name',
+          render: (h, params) => {
+            return h('div', params.row.user.username)
+          }
         },
         {
           title: '申请数量',
-          key: 'applicationNumber'
+          key: 'applicationNumber',
+          render: (h, params) => {
+            return h('div', params.row.order.quantity)
+          }
         },
         {
           title: '代理区县',
-          key: 'agencyDistrict'
+          key: 'agencyDistrict',
+          render: (h, params) => {
+            return h('div', params.row.order.proxyProvice + params.row.order.proxyCity + params.row.order.proxyArea)
+          }
         },
         {
           title: '积分',
-          key: 'point'
+          key: 'point',
+          render: (h, params) => {
+            return h('div', params.row.user.withdrawAmount)
+          }
+        },
+        {
+          title: '收货人',
+          key: 'contact',
+          render: (h, params) => {
+            return h('div', params.row.userAddress.contact)
+          }
         },
         {
           title: '联系电话',
           key: 'phone',
-          width: 130
+          width: 130,
+          render: (h, params) => {
+            return h('div', params.row.userAddress.mobile)
+          }
         },
         {
           title: '发货地址',
           key: 'deliveryAddress',
-          width: 300
+          width: 300,
+          render: (h, params) => {
+            return h('div', params.row.userAddress.province + params.row.userAddress.city + params.row.userAddress.area + params.row.userAddress.detail)
+          }
         },
         {
           title: '编辑',
@@ -55,7 +83,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      // this.show(params.index);
+                      this.auditOrder(params.row.order.id, 1)
                     }
                   }
                 },
@@ -70,7 +98,13 @@ export default {
                   },
                   on: {
                     click: () => {
-                      // this.remove(params.index);
+                      this.$Modal.confirm({
+                        title: '警告',
+                        content: '确定不同意这条申请吗？',
+                        onOk: () => {
+                          this.auditOrder(params.row.order.id, 2)
+                        }
+                      })
                     }
                   }
                 },
@@ -80,45 +114,48 @@ export default {
           }
         }
       ],
-      data1: [
-        {
-          name: 'John Brown',
-          applicationNumber: 122,
-          agencyDistrict: '浙江杭州',
-          point: 18,
-          phone: '17888888888',
-          deliveryAddress: '浙江省杭州市滨江区锯弓街道112号川味科技园2幢'
-        },
-        {
-          name: 'Jim Green',
-          applicationNumber: 122,
-          agencyDistrict: '浙江杭州',
-          point: 24,
-          phone: '17666666666',
-          deliveryAddress: '浙江省杭州市滨江区'
-        }
-      ]
-    }
-  },
-  methods: {
-    queryOrder () {
-      this.$api
-        .queryOrder({
-          pageNo: 1,
-          pageSize: 10
-        })
-        .then(data => {
-          if (data.code === 200) {
-            // this.viewUserObj = data.data.userInfo
-            console.log(data)
-          } else {
-            console.log(data)
-          }
-        })
+      orderData: []
     }
   },
   created () {
     this.queryOrder()
+  },
+  methods: {
+    queryOrder (page) {
+      this.$api
+        .queryOrder({
+          pageNo: page || 1,
+          pageSize: 10
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.orderData = data.data.items
+            this.totalCount = data.data.totalCount
+            this.orderListLoading = false
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    auditOrder (id, audit) {
+      this.$api
+        .auditOrder({
+          id: id,
+          audit: audit
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.$Message.success('处理成功')
+            this.queryOrder()
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    changePage (page) {
+      this.orderListLoading = true
+      this.queryOrder(page)
+    }
   }
 }
 </script>

@@ -5,11 +5,11 @@
           <Card>
             <p slot="title">
               <Icon type="paintbucket"></Icon>
-              新增用户
+              用户数
             </p>
             <Row type="flex" justify="center" align="middle" class="countto-page-row">
               <div class="count-to-con">
-                <count-to :end="2534" count-class="count-text" unit-class="unit-class">
+                <count-to :end="indexDate.userCount || 0" count-class="count-text" unit-class="unit-class">
                   <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
                   <span class="slot-text" slot="right">&nbsp;人</span>
                 </count-to>
@@ -25,7 +25,7 @@
             </p>
             <Row type="flex" justify="center" align="middle" class="countto-page-row">
               <div class="count-to-con">
-                <count-to :end="2534" count-class="count-text" unit-class="unit-class">
+                <count-to :end="indexDate.shipCount || 0" count-class="count-text" unit-class="unit-class">
                   <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
                   <span class="slot-text" slot="right">&nbsp;个</span>
                 </count-to>
@@ -41,7 +41,7 @@
             </p>
             <Row type="flex" justify="center" align="middle" class="countto-page-row">
               <div class="count-to-con">
-                <count-to :end="2534" count-class="count-text" unit-class="unit-class">
+                <count-to :end="indexDate.withdrawCount || 0" count-class="count-text" unit-class="unit-class">
                   <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
                   <span class="slot-text" slot="right">&nbsp;个</span>
                 </count-to>
@@ -57,7 +57,7 @@
             </p>
             <Row type="flex" justify="center" align="middle" class="countto-page-row">
               <div class="count-to-con">
-                <count-to :end="2534" count-class="count-text" unit-class="unit-class">
+                <count-to :end="indexDate.idCardCount || 0" count-class="count-text" unit-class="unit-class">
                   <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
                   <span class="slot-text" slot="right">&nbsp;个</span>
                 </count-to>
@@ -85,32 +85,25 @@ export default {
   },
   data () {
     return {
-      inforCardData: [
-        { title: '新增用户', icon: 'md-person-add', count: 803, color: '#2d8cf0' },
-        { title: '累计点击', icon: 'md-locate', count: 23432, color: '#19be6b' },
-        { title: '新增问答', icon: 'md-help-circle', count: 142, color: '#ff9900' },
-        { title: '分享统计', icon: 'md-share', count: 657, color: '#ed3f14' }
-      ],
-      pieData: [
-        {value: 335, name: '直接访问'},
-        {value: 310, name: '邮件营销'},
-        {value: 234, name: '联盟广告'},
-        {value: 135, name: '视频广告'},
-        {value: 1548, name: '搜索引擎'}
-      ],
-      barData: {
-        Mon: 13253,
-        Tue: 34235,
-        Wed: 26321,
-        Thu: 12340,
-        Fri: 24643,
-        Sat: 1322,
-        Sun: 1324
-      }
+      indexDate: {}
     }
   },
   mounted () {
-    //
+    this.queryIndex()
+  },
+  methods: {
+    queryIndex () {
+      this.$api
+        .queryIndex({})
+        .then(data => {
+          if (data.code === 200) {
+            this.indexDate = data.data.index
+            console.log(this.indexDate)
+          } else {
+            console.log(data)
+          }
+        })
+    }
   }
 }
 </script>

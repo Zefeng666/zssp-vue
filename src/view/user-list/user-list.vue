@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Table :columns='userListColumns' :data='userList' size='large'></Table>
-    <Page style="margin-top: 10px;" :total="queryObj.totalCount" show-total />
+    <Table :loading="userListLoading" :columns='userListColumns' :data='userList' size='large'></Table>
+    <Page style="margin-top: 10px;" :total="queryObj.totalCount" show-total @on-change="changePage" />
     <Modal
         title="查看用户"
         v-model="modalFlag"
@@ -26,6 +26,7 @@ export default {
   data () {
     return {
       modalFlag: false,
+      userListLoading: true,
       userList: [],
       queryObj: {},
       viewUserObj: {},
@@ -50,6 +51,10 @@ export default {
               return h('div', 'CEO')
             }
           }
+        },
+        {
+          title: '代理地区',
+          key: 'proxyArea'
         },
         {
           title: '积分',
@@ -105,7 +110,7 @@ export default {
                         title: '警告',
                         content: '确定要删除吗？',
                         onOk: () => {
-                          this.$Message.success('删除成功！')
+                          this.deleteUser(params.row.uid)
                         }
                       })
                     }
@@ -174,13 +179,16 @@ export default {
     showModal () {
       this.modalVisible = true
     },
-    queryUser () {
+    queryUser (page) {
       this.$api
-        .queryUser({})
+        .queryUser({
+          pageNo: page || 1
+        })
         .then(data => {
           if (data.code === 200) {
             this.userList = data.data.items
             this.queryObj = data.data
+            this.userListLoading = false
           } else {
             console.log(data)
           }
@@ -200,6 +208,24 @@ export default {
             console.log(data)
           }
         })
+    },
+    deleteUser (uid) {
+      this.$api
+        .deleteUser({
+          uid: uid
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.$Message.success('删除成功!')
+            this.queryUser()
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    changePage (page) {
+      this.userListLoading = true
+      this.queryUser(page)
     }
   },
   created () {
