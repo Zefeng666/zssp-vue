@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table :columns='columns1' :data='userList' size='large'></Table>
+    <Table :columns='userListColumns' :data='userList' size='large'></Table>
     <Page style="margin-top: 10px;" :total="queryObj.totalCount" show-total />
     <Modal
         title="查看用户"
@@ -10,12 +10,10 @@
         cancel-text=''>
         <Tabs type="card">
             <TabPane label="用户地址">
-              <Table :columns='columns2' :data='data2' size='small'></Table>
-              <Page style="margin-top: 10px;" :total="100" show-total size='small'/>
+              <Table :columns='addressColumns' :data='addressData' size='small'></Table>
             </TabPane>
             <TabPane label="银行卡">
-              <Table :columns='columns2' :data='data2' size='small'></Table>
-              <Page style="margin-top: 10px;" :total="100" show-total size='small'/>
+              <Table :columns='cardColumns' :data='cardData' size='small'></Table>
             </TabPane>
         </Tabs>
     </Modal>
@@ -31,22 +29,31 @@ export default {
       userList: [],
       queryObj: {},
       viewUserObj: {},
-      columns1: [
-        {
-          title: '头像',
-          key: 'avator'
-        },
+      userListColumns: [
+        // {
+        //   title: '头像',
+        //   key: 'avator'
+        // },
         {
           title: '用户名',
           key: 'username'
         },
         {
           title: '会员等级',
-          key: 'vipLevel'
+          key: 'vipLevel',
+          render: (h, params) => {
+            if (params.row.vipLevel === 0) {
+              return h('div', 'VIP')
+            } else if (params.row.vipLevel === 1) {
+              return h('div', '总代理·')
+            } else if (params.row.vipLevel === 2) {
+              return h('div', 'CEO')
+            }
+          }
         },
         {
           title: '积分',
-          key: 'integral'
+          key: 'withdrawAmount'
         },
         {
           title: '手机号',
@@ -110,45 +117,57 @@ export default {
           }
         }
       ],
-      columns2: [
+      addressColumns: [
         {
           title: '联系人',
-          key: 'name',
+          key: 'contact',
           width: 150
         },
         {
           title: '联系电话',
-          key: 'phone',
+          key: 'mobile',
           width: 150
         },
         {
           title: '地址',
-          key: 'address'
+          key: 'address',
+          render: (h, params) => {
+            return h('div', {}, params.row.province + params.row.city + params.row.area + params.row.detail)
+          }
         },
         {
           title: '是否默认',
           key: 'default',
-          width: 100
+          width: 100,
+          render: (h, params) => {
+            return h('div', {}, params.row.isDefault === 1 ? '是' : '否')
+          }
         }
       ],
-      data2: [
+      addressData: [],
+      cardColumns: [
         {
-          avator: '',
-          name: 'John Brown',
-          level: 'ceo',
-          point: 18,
-          phone: '17888888888',
-          date: '2016-10-03'
+          title: '所属银行',
+          key: 'cardKind'
         },
         {
-          avator: '',
-          name: 'Jim Green',
-          level: 'ceo',
-          point: 24,
-          phone: '17666666666',
-          date: '2016-10-01'
+          title: '卡号',
+          key: 'cardId'
+        },
+        {
+          title: '持卡人',
+          key: 'cardHolder'
+        },
+        {
+          title: '是否默认',
+          key: 'default',
+          width: 100,
+          render: (h, params) => {
+            return h('div', {}, params.row.isDefault === 1 ? '是' : '否')
+          }
         }
-      ]
+      ],
+      cardData: []
     }
   },
   methods: {
@@ -175,7 +194,8 @@ export default {
         .then(data => {
           if (data.code === 200) {
             this.viewUserObj = data.data.userInfo
-            console.log(this.viewUserObj)
+            this.addressData = data.data.userInfo.userAddress
+            this.cardData = data.data.userInfo.userBankCard
           } else {
             console.log(data)
           }

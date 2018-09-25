@@ -29,7 +29,7 @@ const config = {
     }
     opt.method = opt.method.toLowerCase()
     // opt.params['handleUserId'] = 33;
-    opt.params['token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzcyNjc2NzcsInVzZXJuYW1lIjoib2FrIn0.mFmeR0Prco2YHSjJUqTlyRm3FxwYzoShvMkIcszcvUs'
+    opt.params['token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mzg0NDg1NDIsInVzZXJuYW1lIjoib2FrIn0.IrpxU7ahgZK41r21DjXs6OAmvYKzavrLglQ5P_geEzY'
     // opt.params['handleUserId'] = 1;
     // opt.params['handleToken'] = '22383E3C779467B39E827E5A5651DCFE';
     // opt.params['handleUserId'] = localStorage.getItem('user_userId');
