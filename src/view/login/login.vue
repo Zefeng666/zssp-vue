@@ -45,6 +45,7 @@ export default {
         .then(data => {
           if (data.code === 200) {
             localStorage.setItem('token', data.data.jwt)
+            localStorage.setItem('username', data.data.username)
             this.$router.push({
               name: 'home'
             })

@@ -14,8 +14,8 @@
       <Header class="header-con">
         <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
           <!-- <user :user-avator="userAvator"/> -->
-          <span>退出登录</span>
-          <span>用户名：okok&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span style="cursor:pointer;" @click="userLogout">退出登录</span>
+          <span>用户名：{{username}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
           <!-- <language @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/> -->
           <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
         </header-bar>
@@ -62,7 +62,8 @@ export default {
       collapsed: false,
       minLogo,
       maxLogo,
-      isFullscreen: false
+      isFullscreen: false,
+      username: ''
     }
   },
   computed: {
@@ -135,6 +136,10 @@ export default {
     },
     handleClick (item) {
       this.turnToPage(item)
+    },
+    userLogout () {
+      localStorage.clear()
+      this.$router.push('/login')
     }
   },
   watch: {
@@ -175,6 +180,9 @@ export default {
     //     ])
     //   }
     // })
+
+    // 拿到用户名
+    this.username = localStorage.getItem('username')
   }
 }
 </script>
