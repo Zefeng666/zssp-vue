@@ -1,1 +1,1 @@
-(window['webpackJsonp'] = window['webpackJsonp'] || []).push([['fef3'], {fef3: function (e, n, i) { 'use strict'; i.r(n); var l, o, u = i('2877'), f = {}, p = Object(u['a'])(f, l, o, !1, null, null, null); p.options.__file = 'idcard-review.vue', n['default'] = p.exports }}])
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["fef3"],{fef3:function(e,n,i){"use strict";i.r(n);var l,o,u=i("2877"),f={},p=Object(u["a"])(f,l,o,!1,null,null,null);p.options.__file="idcard-review.vue",n["default"]=p.exports}}]);
