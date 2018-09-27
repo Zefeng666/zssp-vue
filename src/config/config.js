@@ -4,8 +4,14 @@ let qs = require('qs')
 // import router from '../router/index'
 // import store from '../store/store'
 axios.defaults.timeout = 5000
-axios.defaults.baseURL = 'http://106.75.232.104:8080/admin' // 10.0.8.177:8080
+axios.defaults.baseURL = 'http://54.250.240.119:8080/admin' // 10.0.8.177:8080
+// axios.defaults.baseURL = 'http://10.0.8.177:8080/admin' // 10.0.8.177:8080
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// if (localStorage.getItem('token')) {
+//   axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+// } else {
+//   axios.defaults.headers.common['Authorization'] = ''
+// }
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   if (response.data.code !== 200) {
@@ -28,7 +34,8 @@ const config = {
       opt.method = 'post'
     }
     opt.method = opt.method.toLowerCase()
-    opt.params['token'] = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+    // opt.params['token'] = localStorage.getItem('token')
     // opt.params['token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mzg0NDg1NDIsInVzZXJuYW1lIjoib2FrIn0.IrpxU7ahgZK41r21DjXs6OAmvYKzavrLglQ5P_geEzY'
     if (!opt.params.pageSize) {
       // opt.params['pageSize'] = 50;
