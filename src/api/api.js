@@ -52,6 +52,13 @@ const API = {
       params: params
     })
   },
+  // 查询历史发货记录
+  queryOrderHistory(params) {
+    return request({
+      url: '/queryOrder/history',
+      params: params
+    })
+  },
   // 提现申请
   queryWithdraw (params) {
     return request({
@@ -65,7 +72,14 @@ const API = {
       url: '/auditWithdraw',
       params: params
     })
-  }
+  },
+  // 查询历史提现记录
+  queryWithdrawHistory(params) {
+    return request({
+      url: '/queryWithdraw/history',
+      params: params
+    })
+  },
 
 }
 

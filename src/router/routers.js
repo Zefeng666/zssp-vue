@@ -11,15 +11,15 @@ import parentView from '@/components/parent-view'
  * }
  */
 
-export default [
-  {
+export default [{
     path: '/login',
     name: 'login',
     meta: {
       title: 'Login - 登录',
       hideInMenu: true
     },
-    component: () => import('@/view/login/login.vue')
+    component: () =>
+      import('@/view/login/login.vue')
   },
   {
     path: '/',
@@ -30,18 +30,17 @@ export default [
       hideInMenu: true,
       notCache: true
     },
-    children: [
-      {
-        path: '/home',
-        name: 'home',
-        meta: {
-          hideInMenu: true,
-          title: '首页',
-          notCache: true
-        },
-        component: () => import('@/view/single-page/home')
-      }
-    ]
+    children: [{
+      path: '/home',
+      name: 'home',
+      meta: {
+        hideInMenu: true,
+        title: '首页',
+        notCache: true
+      },
+      component: () =>
+        import('@/view/single-page/home')
+    }]
   },
   // {
   //   path: '',
@@ -241,56 +240,93 @@ export default [
     path: '/shipping_application',
     name: 'shipping_application',
     meta: {
-      hide: true
+      icon: 'ios-cart',
+      title: '发货申请'
     },
     component: Main,
     children: [{
-      path: 'shipping_application_page',
-      name: 'shipping_application_page',
-      meta: {
-        icon: 'ios-cart',
-        title: '发货申请'
+        path: 'shipping_application_page',
+        name: 'shipping_application_page',
+        meta: {
+          icon: 'ios-cart',
+          title: '发货申请'
+        },
+        component: () =>
+          import('@/view/shipping-application/shipping-application.vue')
       },
-      component: () =>
-        import('@/view/shipping-application/shipping-application.vue')
-    }]
+      {
+        path: 'shipping_record_page',
+        name: 'shipping_record_page',
+        meta: {
+          icon: 'ios-list-box',
+          title: '发货记录'
+        },
+        component: () =>
+          import('@/view/shipping-application/shipping-record.vue')
+      }
+    ]
   },
   {
     path: '/withdrawal_application',
     name: 'withdrawal_application',
     meta: {
-      hide: true
+      icon: 'logo-yen',
+      title: '提现申请'
     },
     component: Main,
     children: [{
-      path: 'withdrawal_application_page',
-      name: 'withdrawal_application_page',
-      meta: {
-        icon: 'logo-yen',
-        title: '提现申请'
+        path: 'withdrawal_application_page',
+        name: 'withdrawal_application_page',
+        meta: {
+          icon: 'md-add',
+          title: '提现申请'
+        },
+        component: () =>
+          import('@/view/withdrawal-application/withdrawal-application.vue')
       },
-      component: () =>
-        import('@/view/withdrawal-application/withdrawal-application.vue')
-    }]
+      {
+        path: 'withdrawal_record_page',
+        name: 'withdrawal_record_page',
+        meta: {
+          icon: 'logo-yen',
+          title: '提现记录'
+        },
+        component: () =>
+          import('@/view/withdrawal-application/withdrawal-record.vue')
+      }
+    ]
   },
   {
     path: '/idcard_review',
     name: 'idcard_review',
     meta: {
-      hide: true
+      icon: 'ios-card',
+      title: '身份证审核'
     },
     component: Main,
     children: [{
-      path: 'idcard_review_page',
-      name: 'idcard_review_page',
-      meta: {
-        icon: 'ios-card',
-        title: '身份证审核'
+        path: 'idcard_review_page',
+        name: 'idcard_review_page',
+        meta: {
+          icon: 'ios-card',
+          title: '身份证审核'
+        },
+        component: () =>
+          import('@/view/idcard-review/idcard-review.vue')
       },
-      component: () =>
-        import('@/view/idcard-review/idcard-review.vue')
-    }]
+      {
+        path: 'idcard_record_page',
+        name: 'idcard_record_page',
+        meta: {
+          icon: 'ios-paper',
+          title: '审核记录'
+        },
+        component: () =>
+          import('@/view/idcard-review/idcard-review.vue')
+      }
+    ]
   },
+
   // {
   //   path: '/directive',
   //   name: 'directive',
@@ -397,7 +433,8 @@ export default [
     meta: {
       hideInMenu: true
     },
-    component: () => import('@/view/error-page/401.vue')
+    component: () =>
+      import('@/view/error-page/401.vue')
   },
   {
     path: '/500',
@@ -405,7 +442,8 @@ export default [
     meta: {
       hideInMenu: true
     },
-    component: () => import('@/view/error-page/500.vue')
+    component: () =>
+      import('@/view/error-page/500.vue')
   },
   {
     path: '*',
@@ -413,6 +451,7 @@ export default [
     meta: {
       hideInMenu: true
     },
-    component: () => import('@/view/error-page/404.vue')
+    component: () =>
+      import('@/view/error-page/404.vue')
   }
 ]
