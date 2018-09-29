@@ -54,6 +54,7 @@ export default {
         {
           title: '身份证背面',
           key: 'agencyDistrict',
+          align: 'center',
           render: (h, params) => {
             return h('div', [
               h(
