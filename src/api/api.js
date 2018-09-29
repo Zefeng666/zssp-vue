@@ -25,7 +25,7 @@ const API = {
     })
   },
   // 用户搜索
-  queryUserSearch(params) {
+  queryUserSearch (params) {
     return request({
       url: '/queryUser/search',
       params: params
@@ -60,7 +60,7 @@ const API = {
     })
   },
   // 查询历史发货记录
-  queryOrderHistory(params) {
+  queryOrderHistory (params) {
     return request({
       url: '/queryOrder/history',
       params: params
@@ -81,13 +81,33 @@ const API = {
     })
   },
   // 查询历史提现记录
-  queryWithdrawHistory(params) {
+  queryWithdrawHistory (params) {
     return request({
       url: '/queryWithdraw/history',
       params: params
     })
   },
-
+  // 身份证审核
+  queryUnReviewIdCard (params) {
+    return request({
+      url: '/queryUnReviewIdCard',
+      params: params
+    })
+  },
+  // 审核身份证
+  reviewIdCard (params) {
+    return request({
+      url: '/reviewIdCard',
+      params: params
+    })
+  },
+  // 查询所有身份证
+  queryIdCardHistory (params) {
+    return request({
+      url: '/queryIdCard/history',
+      params: params
+    })
+  }
 }
 
 export default API
