@@ -24,6 +24,13 @@ const API = {
       params: params
     })
   },
+  // 用户搜索
+  queryUserSearch(params) {
+    return request({
+      url: '/queryUser/search',
+      params: params
+    })
+  },
   // 用户查看
   queryUserByUid (params) {
     return request({

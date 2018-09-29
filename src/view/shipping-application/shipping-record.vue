@@ -21,14 +21,14 @@ export default {
             return h('div', params.row.user.username)
           }
         },
-        {
-          title: '积分',
-          key: 'point',
-          width: 80,
-          render: (h, params) => {
-            return h('div', params.row.user.withdrawAmount)
-          }
-        },
+        // {
+        //   title: '积分',
+        //   key: 'point',
+        //   width: 80,
+        //   render: (h, params) => {
+        //     return h('div', params.row.user.withdrawAmount)
+        //   }
+        // },
         {
           title: '申请数量',
           width: 100,

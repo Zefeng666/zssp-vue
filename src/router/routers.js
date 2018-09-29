@@ -222,19 +222,31 @@ export default [{
     path: '/user_list',
     name: 'user_list',
     meta: {
-      hide: true
+      icon: 'md-people',
+      title: '用户列表'
     },
     component: Main,
     children: [{
-      path: 'user_list_page',
-      name: 'user_list_page',
-      meta: {
-        icon: 'md-person',
-        title: '用户列表'
+        path: 'user_list_page',
+        name: 'user_list_page',
+        meta: {
+          icon: 'md-person',
+          title: '用户列表'
+        },
+        component: () =>
+          import('@/view/user-list/user-list.vue')
       },
-      component: () =>
-        import('@/view/user-list/user-list.vue')
-    }]
+      {
+        path: 'user_search_page',
+        name: 'user_search_page',
+        meta: {
+          icon: 'ios-search',
+          title: '用户搜索'
+        },
+        component: () =>
+          import('@/view/user-list/user-search.vue')
+      }
+    ]
   },
   {
     path: '/shipping_application',

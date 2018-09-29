@@ -34,13 +34,13 @@ export default {
             return h('div', params.row.order.proxyProvice + params.row.order.proxyCity + params.row.order.proxyArea)
           }
         },
-        {
-          title: '积分',
-          key: 'point',
-          render: (h, params) => {
-            return h('div', params.row.user.withdrawAmount)
-          }
-        },
+        // {
+        //   title: '积分',
+        //   key: 'point',
+        //   render: (h, params) => {
+        //     return h('div', params.row.user.withdrawAmount)
+        //   }
+        // },
         {
           title: '收货人',
           key: 'contact',
