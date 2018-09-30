@@ -16,6 +16,16 @@ axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   if (response.data.code !== 200) {
     // store.commit('showErrorMsg', response.data);
+    this.$Message.error(response.data.message)
+    if (response.data.code === 500) {
+      this.$router.push({
+        name: 'error_500'
+      })
+    } else if (response.data.code === 900) {
+      this.$router.push({
+        name: 'login'
+      })
+    }
   }
   return response
 }, function (error) {
