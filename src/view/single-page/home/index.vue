@@ -2,7 +2,7 @@
   <div>
     <Row style="padding:20px" :gutter="16">
         <i-col span="6" class="padding-left-10">
-          <Card>
+          <Card @click.native="goTo('/user_list/user_list_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
               用户数
@@ -18,9 +18,9 @@
           </Card>
         </i-col>
         <i-col span="6" class="padding-left-10">
-          <Card>
+          <Card @click.native="goTo('/shipping_application/shipping_application_page')">
             <p slot="title">
-              <Icon type="paintbucket"></Icon>
+              <!-- <Icon type="paintbucket"></Icon> -->
               发货申请待处理
             </p>
             <Row type="flex" justify="center" align="middle" class="countto-page-row">
@@ -34,7 +34,7 @@
           </Card>
         </i-col>
         <i-col span="6" class="padding-left-10">
-          <Card>
+          <Card @click.native="goTo('/withdrawal_application/withdrawal_application_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
               提现申请待处理
@@ -50,7 +50,7 @@
           </Card>
         </i-col>
         <i-col span="6" class="padding-left-10">
-          <Card>
+          <Card @click.native="goTo('/idcard_review/idcard_review_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
               身份证待审核
@@ -103,6 +103,11 @@ export default {
             console.log(data)
           }
         })
+    },
+    goTo (path) {
+      this.$router.push({
+        path: path
+      })
     }
   }
 }

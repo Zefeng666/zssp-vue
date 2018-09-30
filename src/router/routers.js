@@ -334,7 +334,7 @@ export default [{
           title: '审核记录'
         },
         component: () =>
-          import('@/view/idcard-review/idcard-review.vue')
+          import('@/view/idcard-review/idcard-record.vue')
       }
     ]
   },

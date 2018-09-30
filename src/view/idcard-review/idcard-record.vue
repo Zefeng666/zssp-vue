@@ -90,52 +90,23 @@ export default {
           }
         },
         {
-          title: '编辑',
-          key: 'action',
-          width: 150,
+          title: '审核时间',
+          key: 'reviewTime',
           align: 'center',
           render: (h, params) => {
-            return h('div', [
-              h(
-                'Button',
-                {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.reviewIdCard(params.row.id, 1)
-                    }
-                  }
-                },
-                '通过'
-              ),
-              h(
-                'Button',
-                {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  on: {
-                    click: () => {
-                      this.$Modal.confirm({
-                        title: '警告',
-                        content: '确定不同意这条申请吗？',
-                        onOk: () => {
-                          this.reviewIdCard(params.row.id, 2)
-                        }
-                      })
-                    }
-                  }
-                },
-                '不通过'
-              )
-            ])
+            return h('div', params.row.reviewTime.substr(0, 10))
+          }
+        },
+        {
+          title: '审核',
+          key: 'isReview',
+          align: 'center',
+          render: (h, params) => {
+            if (params.row.isReview === 1) {
+              return h('div', '通过')
+            } else if (params.row.isReview === 2) {
+              return h('div', '未通过')
+            }
           }
         }
       ],
@@ -143,12 +114,12 @@ export default {
     }
   },
   created () {
-    this.queryUnReviewIdCard()
+    this.queryIdCardHistory()
   },
   methods: {
-    queryUnReviewIdCard (page) {
+    queryIdCardHistory (page) {
       this.$api
-        .queryUnReviewIdCard({
+        .queryIdCardHistory({
           pageNo: page || 1,
           pageSize: 10
         })
@@ -162,24 +133,9 @@ export default {
           }
         })
     },
-    reviewIdCard (id, audit) {
-      this.$api
-        .reviewIdCard({
-          id: id,
-          audit: audit
-        })
-        .then(data => {
-          if (data.code === 200) {
-            this.$Message.success('处理成功')
-            this.queryUnReviewIdCard()
-          } else {
-            console.log(data)
-          }
-        })
-    },
     changePage (page) {
       this.orderListLoading = true
-      this.queryUnReviewIdCard(page)
+      this.queryIdCardHistory(page)
     }
   }
 }
