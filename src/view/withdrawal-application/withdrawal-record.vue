@@ -96,7 +96,7 @@ export default {
     },
     changePage (page) {
       this.withdrawListLoading = true
-      this.queryWithdraw(page)
+      this.queryWithdrawHistory(page)
     }
   }
 }

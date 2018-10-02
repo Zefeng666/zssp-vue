@@ -31,7 +31,7 @@ export default {
           title: '代理区县',
           key: 'agencyDistrict',
           render: (h, params) => {
-            return h('div', params.row.order.proxyProvice + params.row.order.proxyCity + params.row.order.proxyArea)
+            return h('div', params.row.user.proxyArea)
           }
         },
         // {
