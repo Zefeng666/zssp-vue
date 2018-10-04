@@ -1,7 +1,7 @@
 let Promise = require('bluebird')
 let axios = require('axios')
 let qs = require('qs')
-// import router from '../router/index'
+import router from '../router/index'
 // import store from '../store/store'
 axios.defaults.timeout = 5000
 axios.defaults.baseURL = 'http://54.250.240.119:8080/admin' // 10.0.8.177:8080
@@ -16,13 +16,11 @@ axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   if (response.data.code !== 200) {
     // store.commit('showErrorMsg', response.data);
-    this.$Message.error(response.data.message)
+    // this.$Message.error(response.data.message)
     if (response.data.code === 500) {
-      this.$router.push({
-        name: 'error_500'
-      })
+      router.push('/500')
     } else if (response.data.code === 900) {
-      this.$router.push({
+      router.push({
         name: 'login'
       })
     }
