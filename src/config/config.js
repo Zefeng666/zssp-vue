@@ -4,7 +4,7 @@ let qs = require('qs')
 import router from '../router/index'
 // import store from '../store/store'
 axios.defaults.timeout = 5000
-axios.defaults.baseURL = 'http://54.250.240.119:8080/admin' // 10.0.8.177:8080
+axios.defaults.baseURL = 'http://119.23.14.187:8080/admin' // 10.0.8.177:8080
 // axios.defaults.baseURL = 'http://10.0.8.177:8080/admin' // 10.0.8.177:8080
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // if (localStorage.getItem('token')) {
