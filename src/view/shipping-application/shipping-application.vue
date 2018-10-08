@@ -28,19 +28,31 @@ export default {
           }
         },
         {
+          title: '申请时间',
+          key: 'applicationTime',
+          render: (h, params) => {
+            let d = new Date(params.row.order.createTime)
+            return h('div', d.toLocaleString())
+          }
+        },
+        {
           title: '代理区县',
           key: 'agencyDistrict',
           render: (h, params) => {
             return h('div', params.row.user.proxyArea)
           }
         },
-        // {
-        //   title: '积分',
-        //   key: 'point',
-        //   render: (h, params) => {
-        //     return h('div', params.row.user.withdrawAmount)
-        //   }
-        // },
+        {
+          title: '货源状况',
+          key: 'warn',
+          render: (h, params) => {
+            if (params.row.order.isWarn === 0) {
+              return h('div', '正常')
+            } else if (params.row.order.isWarn === 1) {
+              return h('div', '不足')
+            }
+          }
+        },
         {
           title: '收货人',
           key: 'contact',
@@ -51,7 +63,6 @@ export default {
         {
           title: '联系电话',
           key: 'phone',
-          width: 130,
           render: (h, params) => {
             return h('div', params.row.userAddress.mobile)
           }
@@ -59,7 +70,7 @@ export default {
         {
           title: '发货地址',
           key: 'deliveryAddress',
-          width: 300,
+          width: 200,
           render: (h, params) => {
             return h('div', params.row.userAddress.province + params.row.userAddress.city + params.row.userAddress.area + params.row.userAddress.detail)
           }

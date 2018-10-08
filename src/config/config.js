@@ -20,9 +20,8 @@ axios.interceptors.response.use(function (response) {
     if (response.data.code === 500) {
       router.push('/500')
     } else if (response.data.code === 900) {
-      router.push({
-        name: 'login'
-      })
+      localStorage.clear()
+      router.push('/login')
     }
   }
   return response
