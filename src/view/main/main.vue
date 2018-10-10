@@ -26,9 +26,10 @@
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
           </div> -->
           <Content class="content-wrapper">
-            <keep-alive :include="cacheList">
+            <!-- <keep-alive :include="cacheList">
               <router-view/>
-            </keep-alive>
+            </keep-alive> -->
+            <router-view/>
           </Content>
         </Layout>
       </Content>

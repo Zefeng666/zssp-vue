@@ -223,7 +223,8 @@ export default [{
     name: 'user_list',
     meta: {
       icon: 'md-people',
-      title: '用户列表'
+      title: '用户列表',
+      notCache: true
     },
     component: Main,
     children: [{
@@ -231,7 +232,8 @@ export default [{
         name: 'user_list_page',
         meta: {
           icon: 'md-person',
-          title: '用户列表'
+          title: '用户列表',
+          notCache: true
         },
         component: () =>
           import('@/view/user-list/user-list.vue')
@@ -253,7 +255,8 @@ export default [{
     name: 'shipping_application',
     meta: {
       icon: 'ios-cart',
-      title: '发货申请'
+      title: '发货申请',
+      notCache: true
     },
     component: Main,
     children: [{
@@ -261,7 +264,8 @@ export default [{
         name: 'shipping_application_page',
         meta: {
           icon: 'ios-cart',
-          title: '发货申请'
+          title: '发货申请',
+          notCache: true
         },
         component: () =>
           import('@/view/shipping-application/shipping-application.vue')
@@ -271,7 +275,8 @@ export default [{
         name: 'shipping_record_page',
         meta: {
           icon: 'ios-list-box',
-          title: '发货记录'
+          title: '发货记录',
+          notCache: true
         },
         component: () =>
           import('@/view/shipping-application/shipping-record.vue')
@@ -283,7 +288,8 @@ export default [{
     name: 'withdrawal_application',
     meta: {
       icon: 'logo-yen',
-      title: '提现申请'
+      title: '提现申请',
+      notCache: true
     },
     component: Main,
     children: [{
@@ -291,7 +297,8 @@ export default [{
         name: 'withdrawal_application_page',
         meta: {
           icon: 'md-add',
-          title: '提现申请'
+          title: '提现申请',
+          notCache: true
         },
         component: () =>
           import('@/view/withdrawal-application/withdrawal-application.vue')
@@ -301,7 +308,8 @@ export default [{
         name: 'withdrawal_record_page',
         meta: {
           icon: 'logo-yen',
-          title: '提现记录'
+          title: '提现记录',
+          notCache: true
         },
         component: () =>
           import('@/view/withdrawal-application/withdrawal-record.vue')
@@ -313,7 +321,8 @@ export default [{
     name: 'idcard_review',
     meta: {
       icon: 'ios-card',
-      title: '身份证审核'
+      title: '身份证审核',
+      notCache: true
     },
     component: Main,
     children: [{
@@ -321,7 +330,8 @@ export default [{
         name: 'idcard_review_page',
         meta: {
           icon: 'ios-card',
-          title: '身份证审核'
+          title: '身份证审核',
+          notCache: true
         },
         component: () =>
           import('@/view/idcard-review/idcard-review.vue')
@@ -331,7 +341,8 @@ export default [{
         name: 'idcard_record_page',
         meta: {
           icon: 'ios-paper',
-          title: '审核记录'
+          title: '审核记录',
+          notCache: true
         },
         component: () =>
           import('@/view/idcard-review/idcard-record.vue')
