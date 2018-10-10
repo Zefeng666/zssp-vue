@@ -14,6 +14,13 @@ export default {
       withdrawListLoading: true,
       withdrawColumns: [
         {
+          title: '序号',
+          key: 'index',
+          render: (h, params) => {
+            return h('div', params.row._index + 1)
+          }
+        },
+        {
           title: '用户名',
           key: 'name',
           width: 120,

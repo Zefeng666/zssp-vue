@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <Table :loading="orderListLoading" :columns='orderColumns' :data='orderData' size='large'></Table>
-    <Page style="margin-top: 10px;" :total="totalCount" show-total @on-change="changePage" />
-  </div>
+    <div>
+        <Table :loading="orderListLoading" :columns='orderColumns' :data='orderData' size='large'></Table>
+        <Page style="margin-top: 10px;" :total="totalCount" show-total @on-change="changePage" />
+    </div>
 </template>
 
 <script>
@@ -13,6 +13,13 @@ export default {
       totalCount: 0,
       orderListLoading: true,
       orderColumns: [
+        {
+          title: '序号',
+          key: 'index',
+          render: (h, params) => {
+            return h('div', params.row._index + 1)
+          }
+        },
         {
           title: '用户名',
           key: 'name',
@@ -79,7 +86,13 @@ export default {
           title: '发货地址',
           key: 'deliveryAddress',
           render: (h, params) => {
-            return h('div', params.row.userAddress.province + params.row.userAddress.city + params.row.userAddress.area + params.row.userAddress.detail)
+            return h(
+              'div',
+              params.row.userAddress.province +
+                params.row.userAddress.city +
+                params.row.userAddress.area +
+                params.row.userAddress.detail
+            )
           }
         },
         {
@@ -127,5 +140,4 @@ export default {
 </script>
 
 <style>
-
 </style>
