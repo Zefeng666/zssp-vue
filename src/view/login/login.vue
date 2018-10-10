@@ -50,7 +50,7 @@ export default {
               name: 'home'
             })
           } else {
-            console.log(data)
+            this.$Message.error(data.message)
           }
         })
     }
