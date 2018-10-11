@@ -31,10 +31,13 @@ export default {
       queryObj: {},
       viewUserObj: {},
       userListColumns: [
-        // {
-        //   title: '头像',
-        //   key: 'avator'
-        // },
+        {
+          title: '序号',
+          key: 'index',
+          render: (h, params) => {
+            return h('div', params.row._index + 1)
+          }
+        },
         {
           title: '用户名',
           key: 'username'
@@ -57,8 +60,12 @@ export default {
           key: 'proxyArea'
         },
         {
-          title: '积分',
+          title: '余额',
           key: 'withdrawAmount'
+        },
+        {
+          title: '剩余库存',
+          key: 'lastQuantity'
         },
         {
           title: '手机号',
