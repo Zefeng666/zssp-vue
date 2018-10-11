@@ -54,6 +54,8 @@ export default {
               return h('div', '总代理·')
             } else if (params.row.vipLevel === 2) {
               return h('div', 'CEO')
+            } else if (params.row.vipLevel === -1) {
+              return h('div', '普通用户')
             }
           }
         },
