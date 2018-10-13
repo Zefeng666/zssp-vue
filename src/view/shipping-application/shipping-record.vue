@@ -60,13 +60,13 @@ export default {
             return h('div', d.toLocaleString())
           }
         },
-        {
-          title: '代理区县',
-          key: 'agencyDistrict',
-          render: (h, params) => {
-            return h('div', params.row.user.proxyArea)
-          }
-        },
+        // {
+        //   title: '代理区县',
+        //   key: 'agencyDistrict',
+        //   render: (h, params) => {
+        //     return h('div', params.row.user.proxyArea)
+        //   }
+        // },
         {
           title: '联系人',
           key: 'contact',
