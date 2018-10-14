@@ -1,11 +1,49 @@
 <template>
   <div>
     <div class="search-box">
-        <Input class="search-inp" v-model="searchContent" prefix="ios-contact" placeholder="输入用户名" style="width: auto" />
+        <Dropdown style="margin-right: 10px" @on-click="showType">
+            <Button type="primary">
+                {{searchType}}
+                <Icon type="ios-arrow-down"></Icon>
+            </Button>
+            <DropdownMenu slot="list">
+                <DropdownItem name="用户名">用户名</DropdownItem>
+                <DropdownItem name="手机号">手机号</DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+        <Input class="search-inp" v-model="searchContent" placeholder="请输入" style="width: auto" />
         <Button type="info" class="search-btn" @click="queryUserSearch">搜索</Button>
+        <Button type="info" class="search-btn" @click="modalCityFlag = true">按城市搜索</Button>
     </div>
     <Table :loading="userListLoading" :columns='userListColumns' :data='userList' size='large'></Table>
     <!-- <Page style="margin-top: 10px;" :total="queryObj.totalCount" show-total @on-change="changePage" /> -->
+    <Modal
+        v-model="modalCityFlag"
+        title="按城市搜索"
+        @on-ok="queryUserSearch(2)"
+        @on-cancel="cancelCity">
+        <p style="margin-bottom: 10px">
+          省：
+          <Select v-model="province" style="width:200px" clearable>
+            <Option v-for="(value, key) in addressList['86']" :value="key" :key="key">{{ value }}</Option>
+          </Select>
+          必填
+        </p>
+        <p style="margin-bottom: 10px">
+          市：
+          <Select v-model="city" style="width:200px">
+            <Option v-for="(value, key) in addressList[this.province]" :value="key" :key="key">{{ value }}</Option>
+          </Select>
+          选填
+        </p>
+        <p style="margin-bottom: 10px">
+          区：
+          <Select v-model="area" style="width:200px">
+            <Option v-for="(value, key) in addressList[this.city]" :value="key" :key="key">{{ value }}</Option>
+          </Select>
+          选填
+        </p>
+    </Modal>
     <Modal
         title="查看用户"
         v-model="modalFlag"
@@ -25,21 +63,24 @@
 </template>
 
 <script>
+import ChinaAddressData from '@/assets/js/addressData.js'
 export default {
   name: 'user_search_page',
   data () {
     return {
+      addressList: ChinaAddressData,
       searchContent: '',
+      searchType: '用户名',
+      modalCityFlag: false,
       modalFlag: false,
       userListLoading: false,
       userList: [],
       queryObj: {},
+      province: '',
+      city: '',
+      area: '',
       viewUserObj: {},
       userListColumns: [
-        // {
-        //   title: '头像',
-        //   key: 'avator'
-        // },
         {
           title: '用户名',
           key: 'username'
@@ -182,16 +223,42 @@ export default {
       cardData: []
     }
   },
+  computed: {
+    cityList: function () {
+      return this.addressList[this.province]
+    },
+    areaList: function () {
+      return this.addressList[this.city]
+    }
+  },
+  watch: {
+    province: function (val) {
+      this.city = ''
+      this.area = ''
+    },
+    city: function (val) {
+      this.area = ''
+    }
+  },
   methods: {
     showModal () {
       this.modalVisible = true
     },
-    queryUserSearch () {
+    queryUserSearch (type) {
       this.userListLoading = true
+      let queryObj = {}
+      if (type === 2) {
+        queryObj.username = ''
+        queryObj.province = this.addressList['86'][this.province]
+        queryObj.city = this.addressList[this.province][this.city]
+        queryObj.area = this.addressList[this.city][this.area]
+      } else if (this.searchType === '用户名') {
+        queryObj.username = this.searchContent
+      } else if (this.searchType === '手机号') {
+        queryObj.phone = this.searchContent
+      }
       this.$api
-        .queryUserSearch({
-          username: this.searchContent
-        })
+        .queryUserSearch(queryObj)
         .then(data => {
           if (data.code === 200) {
             if (data.data.user === null) {
@@ -238,10 +305,15 @@ export default {
     changePage (page) {
       this.userListLoading = true
       this.queryUser(page)
+    },
+    cancelCity () {
+    },
+    showType (name) {
+      console.log(name)
+      this.searchType = name
     }
   },
   created () {
-    // this.queryUser()
   }
 }
 </script>
@@ -263,6 +335,9 @@ export default {
   margin-bottom: 15px;
 }
 .search-inp {
+  margin-right: 15px;
+}
+.search-btn {
   margin-right: 15px;
 }
 </style>
