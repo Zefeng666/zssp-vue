@@ -1,49 +1,6 @@
 <template>
   <div>
-    <div class="search-box">
-        <Dropdown style="margin-right: 10px" @on-click="showType">
-            <Button type="primary">
-                {{searchType}}
-                <Icon type="ios-arrow-down"></Icon>
-            </Button>
-            <DropdownMenu slot="list">
-                <DropdownItem name="用户名">用户名</DropdownItem>
-                <DropdownItem name="手机号">手机号</DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
-        <Input class="search-inp" v-model="searchContent" placeholder="请输入" style="width: auto" />
-        <Button type="info" class="search-btn" @click="queryUserSearch">搜索</Button>
-        <Button type="info" class="search-btn" @click="modalCityFlag = true">按城市搜索</Button>
-    </div>
     <Table :loading="userListLoading" :columns='userListColumns' :data='userList' size='large'></Table>
-    <Page v-show="isShowPage" style="margin-top: 10px;" :total="queryObj.totalCount" show-total @on-change="changePage" />
-    <Modal
-        v-model="modalCityFlag"
-        title="按城市搜索"
-        @on-ok="queryUserSearch(2)"
-        @on-cancel="cancelCity">
-        <p style="margin-bottom: 10px">
-          省：
-          <Select v-model="province" style="width:200px" clearable>
-            <Option v-for="(value, key) in addressList['86']" :value="key" :key="key">{{ value }}</Option>
-          </Select>
-          必填
-        </p>
-        <p style="margin-bottom: 10px">
-          市：
-          <Select v-model="city" style="width:200px" clearable>
-            <Option v-for="(value, key) in addressList[this.province]" :value="key" :key="key">{{ value }}</Option>
-          </Select>
-          选填
-        </p>
-        <p style="margin-bottom: 10px">
-          区：
-          <Select v-model="area" style="width:200px" clearable>
-            <Option v-for="(value, key) in addressList[this.city]" :value="key" :key="key">{{ value }}</Option>
-          </Select>
-          选填
-        </p>
-    </Modal>
     <Modal
         title="查看用户"
         v-model="modalFlag"
@@ -90,7 +47,8 @@
         v-model="editModalFlag"
         :mask-closable="false"
         width="800"
-        cancel-text='取消'>
+        cancel-text='取消'
+        @on-ok="alterUser">
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">用户名:</span>
           <Input v-model="editUserObj.username" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditUsername"/>
@@ -121,12 +79,6 @@ export default {
   data () {
     return {
       addressList: ChinaAddressData,
-      searchContent: '',
-      province: '',
-      city: '',
-      area: '',
-      searchType: '用户名',
-      modalCityFlag: false,
       modalFlag: false,
       editModalFlag: false,
       isEditUsername: true,
@@ -134,12 +86,10 @@ export default {
       isEditAmount: true,
       userListLoading: true,
       userList: [],
-      queryObj: {},
       viewUserObj: {},
       viewUserTree: {},
       editUserObj: {},
       changeAmount: 0,
-      isShowPage: true,
       userListColumns: [
         {
           title: '序号',
@@ -352,49 +302,15 @@ export default {
     showModal () {
       this.modalVisible = true
     },
-    queryUser (page) {
+    queryNewUser (page) {
       this.$api
-        .queryUser({
-          pageNo: page || 1
-        })
+        .queryNewUser({})
         .then(data => {
           if (data.code === 200) {
-            this.userList = data.data.items
-            this.queryObj = data.data
+            this.userList = data.data.users
             this.userListLoading = false
           } else {
             console.log(data)
-          }
-        })
-    },
-    queryUserSearch (type) {
-      this.userListLoading = true
-      this.isShowPage = false
-      let queryObj = {}
-      if (type === 2) {
-        queryObj.username = ''
-        queryObj.province = this.addressList['86'][this.province]
-        queryObj.city = this.addressList[this.province][this.city] || ''
-        this.city ? queryObj.area = this.addressList[this.city][this.area] : queryObj.area = ''
-      } else if (this.searchType === '用户名') {
-        queryObj.username = this.searchContent
-      } else if (this.searchType === '手机号') {
-        queryObj.mobile = this.searchContent
-      }
-      this.$api
-        .queryUserSearch(queryObj)
-        .then(data => {
-          if (data.code === 200) {
-            if (data.data.user === null) {
-              this.$Message.warning('用户不存在')
-            } else {
-              this.userList = []
-              this.userList.push(data.data.user)
-            }
-            this.userListLoading = false
-          } else {
-            this.$Message.warning(data.message)
-            this.userListLoading = false
           }
         })
     },
@@ -490,15 +406,10 @@ export default {
     },
     changePageSmall (page) {
       this.queryIntegrals(page)
-    },
-    cancelCity () {
-    },
-    showType (name) {
-      this.searchType = name
     }
   },
   created () {
-    this.queryUser()
+    this.queryNewUser()
   }
 }
 </script>
@@ -514,14 +425,5 @@ export default {
   width: 400px;
   background: #f9f9f9;
   padding-top: 10px;
-}
-.search-box {
-  margin-bottom: 15px;
-}
-.search-inp {
-  margin-right: 15px;
-}
-.search-btn {
-  margin-right: 15px;
 }
 </style>

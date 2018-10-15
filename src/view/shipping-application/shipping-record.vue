@@ -16,6 +16,8 @@ export default {
         {
           title: '序号',
           key: 'index',
+          width: 70,
+          align: 'center',
           render: (h, params) => {
             return h('div', params.row._index + 1)
           }

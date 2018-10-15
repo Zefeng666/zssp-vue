@@ -16,6 +16,8 @@ export default {
         {
           title: '序号',
           key: 'index',
+          width: 70,
+          align: 'center',
           render: (h, params) => {
             return h('div', params.row._index + 1)
           }
@@ -25,6 +27,13 @@ export default {
           key: 'name',
           render: (h, params) => {
             return h('div', params.row.user.username)
+          }
+        },
+        {
+          title: '手机号',
+          key: 'phone',
+          render: (h, params) => {
+            return h('div', params.row.user.mobile)
           }
         },
         {

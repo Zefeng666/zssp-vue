@@ -15,6 +15,8 @@ export default {
       withdrawColumns: [
         {
           title: '序号',
+          width: 70,
+          align: 'center',
           key: 'index',
           render: (h, params) => {
             return h('div', params.row._index + 1)
@@ -26,6 +28,13 @@ export default {
           width: 120,
           render: (h, params) => {
             return h('div', params.row.user.username)
+          }
+        },
+        {
+          title: '手机号',
+          key: 'phone',
+          render: (h, params) => {
+            return h('div', params.row.user.mobile)
           }
         },
         {

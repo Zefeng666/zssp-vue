@@ -24,6 +24,13 @@ const API = {
       params: params
     })
   },
+  // 新升级用户列表
+  queryNewUser(params) {
+    return request({
+      url: '/queryNewUser',
+      params: params
+    })
+  },
   // 用户搜索
   queryUserSearch (params) {
     return request({
