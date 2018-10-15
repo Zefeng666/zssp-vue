@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Row style="padding:20px" :gutter="16">
-        <i-col span="6" class="padding-left-10">
+    <Row style="margin-bottom: 10px;" :gutter="10">
+        <i-col span="12" class="padding-left-10">
           <Card @click.native="goTo('/user_list/user_list_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
@@ -17,7 +17,25 @@
             </Row>
           </Card>
         </i-col>
-        <i-col span="6" class="padding-left-10">
+        <i-col span="12" class="padding-left-10">
+          <Card @click.native="goTo('/user_list/user_list_page')">
+            <p slot="title">
+              <Icon type="paintbucket"></Icon>
+              新升级用户
+            </p>
+            <Row type="flex" justify="center" align="middle" class="countto-page-row">
+              <div class="count-to-con">
+                <count-to :end="indexDate.newUserCount || 0" count-class="count-text" unit-class="unit-class">
+                  <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
+                  <span class="slot-text" slot="right">&nbsp;人</span>
+                </count-to>
+              </div>
+            </Row>
+          </Card>
+        </i-col>
+    </Row>
+    <Row style="" :gutter="10">
+        <i-col span="8" class="padding-left-10">
           <Card @click.native="goTo('/shipping_application/shipping_application_page')">
             <p slot="title">
               <!-- <Icon type="paintbucket"></Icon> -->
@@ -33,7 +51,7 @@
             </Row>
           </Card>
         </i-col>
-        <i-col span="6" class="padding-left-10">
+        <i-col span="8" class="padding-left-10">
           <Card @click.native="goTo('/withdrawal_application/withdrawal_application_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
@@ -49,7 +67,7 @@
             </Row>
           </Card>
         </i-col>
-        <i-col span="6" class="padding-left-10">
+        <i-col span="8" class="padding-left-10">
           <Card @click.native="goTo('/idcard_review/idcard_review_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>

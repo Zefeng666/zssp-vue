@@ -38,10 +38,31 @@ const API = {
       params: params
     })
   },
+  // 下面两级的用户
+  queryUnderlingUser(params) {
+    return request({
+      url: '/queryUnderlingUser',
+      params: params
+    })
+  },
+  // 收益明细
+  queryIntegrals(params) {
+    return request({
+      url: '/queryIntegrals',
+      params: params
+    })
+  },
   // 删除用户
   deleteUser (params) {
     return request({
       url: '/deleteUser',
+      params: params
+    })
+  },
+  // 编辑用户
+  alterUser (params) {
+    return request({
+      url: '/alterUser',
       params: params
     })
   },

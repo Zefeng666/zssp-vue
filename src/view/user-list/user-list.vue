@@ -15,7 +15,41 @@
             <TabPane label="银行卡">
               <Table :columns='cardColumns' :data='cardData' size='small'></Table>
             </TabPane>
+            <TabPane label="收益明细">
+              <Table :columns='integralsColumns' :data='userIntegrals' size='small'></Table>
+              <Page style="margin-top: 10px;" :total="integralsTotal" :page-size="8" size="small" show-total @on-change="changePageSmall" />
+            </TabPane>
+            <TabPane label="子级用户">
+
+            </TabPane>
         </Tabs>
+    </Modal>
+    <Modal
+        title="编辑用户"
+        v-model="editModalFlag"
+        :mask-closable="false"
+        width="800"
+        cancel-text='取消'
+        @on-ok="alterUser">
+        <p style="margin-bottom: 10px;">
+          <span style="display: inline-block; width: 60px;">用户名:</span>
+          <Input v-model="editUserObj.username" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditUsername"/>
+          <a v-show="isEditUsername" @click="isEditUsername = false">修改</a>
+          <a v-show="!isEditUsername" @click="alterUser(1)">保存</a>
+        </p>
+        <p style="margin-bottom: 10px;">
+          <span style="display: inline-block; width: 60px;">手机号:</span>
+          <Input v-model="editUserObj.mobile" placeholder="Enter something..." style="width: 200px; margin-right: 10px;"  :disabled="isEditPhone" />
+          <a v-show="isEditPhone" @click="isEditPhone = false">修改</a>
+          <a v-show="!isEditPhone" @click="isEditPhone = true">保存</a>
+        </p>
+        <p>
+          <span style="display: inline-block; width: 60px;">增减积分:</span>
+          <Input v-model="changeAmount" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditAmount" />
+          <a v-show="isEditAmount" @click="isEditAmount = false">修改</a>
+          <a v-show="!isEditAmount" @click="isEditAmount = true">保存</a>
+        </p>
+
     </Modal>
   </div>
 </template>
@@ -26,10 +60,17 @@ export default {
   data () {
     return {
       modalFlag: false,
+      editModalFlag: false,
+      isEditUsername: true,
+      isEditPhone: true,
+      isEditAmount: true,
       userListLoading: true,
       userList: [],
       queryObj: {},
       viewUserObj: {},
+      viewUserTree: {},
+      editUserObj: {},
+      changeAmount: 0,
       userListColumns: [
         {
           title: '序号',
@@ -49,13 +90,21 @@ export default {
             if (params.row.vipLevel === 0) {
               return h('div', 'VIP')
             } else if (params.row.vipLevel === 1) {
-              return h('div', '总代理')
+              return h('div', '经销商')
             } else if (params.row.vipLevel === 2) {
-              return h('div', 'CEO')
+              return h('div', '总代理')
             } else if (params.row.vipLevel === -1) {
               return h('div', '普通用户')
             }
           }
+        },
+        {
+          title: '经销商',
+          key: 'recentDealer'
+        },
+        {
+          title: '总代理',
+          key: 'recentProxy'
         },
         {
           title: '代理地区',
@@ -81,9 +130,9 @@ export default {
           }
         },
         {
-          title: '编辑',
+          title: '操作',
           key: 'action',
-          width: 150,
+          width: 180,
           align: 'center',
           render: (h, params) => {
             return h('div', [
@@ -100,11 +149,31 @@ export default {
                   on: {
                     click: () => {
                       this.queryUserByUid(params.row.uid)
+                      this.queryUnderlingUser(params.row.uid)
                       this.modalFlag = true
                     }
                   }
                 },
                 '查看'
+              ),
+              h(
+                'Button',
+                {
+                  props: {
+                    type: 'warning',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.queryUserByUid(params.row.uid)
+                      this.editModalFlag = true
+                    }
+                  }
+                },
+                '编辑'
               ),
               h(
                 'Button',
@@ -181,7 +250,31 @@ export default {
           }
         }
       ],
-      cardData: []
+      cardData: [],
+      integralsColumns: [
+        {
+          title: '类型',
+          key: 'changeType'
+        },
+        {
+          title: '积分变化',
+          key: 'integralNum'
+        },
+        {
+          title: '详情',
+          key: 'changeDetail'
+        },
+        {
+          title: '时间',
+          key: 'createTime',
+          render: (h, params) => {
+            let d = new Date(params.row.createTime)
+            return h('div', d.toLocaleString())
+          }
+        }
+      ],
+      userIntegrals: [],
+      integralsTotal: 0
     }
   },
   methods: {
@@ -211,8 +304,62 @@ export default {
         .then(data => {
           if (data.code === 200) {
             this.viewUserObj = data.data.userInfo
+            this.editUserObj = data.data.userInfo.user
             this.addressData = data.data.userInfo.userAddress
             this.cardData = data.data.userInfo.userBankCard
+            this.queryIntegrals()
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    queryUnderlingUser (uid) {
+      this.$api
+        .queryUnderlingUser({
+          uid: uid
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.viewUserTree = data.data
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    queryIntegrals (page) {
+      this.$api
+        .queryIntegrals({
+          uid: this.viewUserObj.user.uid,
+          pageNo: page || 1,
+          pageSize: 8
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.userIntegrals = data.data.items
+            this.integralsTotal = data.data.totalCount
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    alterUser (type) {
+      let text = ''
+      if (type === 0) {
+        text = this.editUserObj.mobile
+      } else if (type === 1) {
+        text = this.editUserObj.username
+      } else if (type === 2) {
+        text = this.changeAmount
+      }
+      this.$api
+        .alterUser({
+          alterType: type,
+          text: text
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.$Message.success('删除成功!')
+            this.queryUser()
           } else {
             console.log(data)
           }
@@ -235,6 +382,9 @@ export default {
     changePage (page) {
       this.userListLoading = true
       this.queryUser(page)
+    },
+    changePageSmall (page) {
+      this.queryIntegrals(page)
     }
   },
   created () {
