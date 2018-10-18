@@ -16,11 +16,11 @@
         </FormItem>
         <FormItem label="商品价格">
             VIP价格:
-            <Input v-model="price1" placeholder="" style="width: 100px" /> 元
+            <Input v-model="formItem.vipPrice" placeholder="" style="width: 100px" /> 元
             经销商价格:
-            <Input v-model="price2" placeholder="" style="width: 100px" /> 元
+            <Input v-model="formItem.dealerPrice" placeholder="" style="width: 100px" /> 元
             总代理价格:
-            <Input v-model="price3" placeholder="" style="width: 100px" /> 元
+            <Input v-model="formItem.proxyPrice" placeholder="" style="width: 100px" /> 元
         </FormItem>
         <FormItem label="商品简介">
             <Input v-model="formItem.detail" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
@@ -39,14 +39,13 @@ export default {
   data () {
     return {
       qnToken: '',
-      price1: '',
-      price2: '',
-      price3: '',
       formItem: {
         name: '',
         url: '',
         detail: '',
-        vipPriceDetail: ''
+        vipPrice: '',
+        dealerPrice: '',
+        proxyPrice: ''
       }
     }
   },
@@ -54,10 +53,6 @@ export default {
     this.getQnToken()
     if (this.$route.query.productId) {
       this.formItem = this.$route.query
-      let priceArr = this.formItem.vipPriceDetail.split(';')
-      this.price1 = priceArr[0].split(':')[1]
-      this.price2 = priceArr[1].split(':')[1]
-      this.price3 = priceArr[2].split(':')[1]
     }
   },
   mounted () {
@@ -106,7 +101,6 @@ export default {
       this.formItem.url = 'http://7xwip7.com1.z0.glb.clouddn.com/' + response.key
     },
     submit () {
-      this.formItem.vipPriceDetail = '0:' + this.price1 + ';1:' + this.price2 + ';2:' + this.price3
       if (this.$route.query.productId) {
         this.alterProduct()
       } else {
@@ -115,9 +109,6 @@ export default {
     },
     clearForm () {
       this.formItem = {}
-      this.price1 = ''
-      this.price2 = ''
-      this.price3 = ''
     }
   }
 }

@@ -182,7 +182,7 @@ export default {
         })
         .then(data => {
           if (data.code === 200) {
-            this.orderData = data.data.products
+            this.orderData = data.data.items
             this.totalCount = data.data.totalCount
             this.orderListLoading = false
           } else {
