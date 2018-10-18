@@ -174,6 +174,39 @@ export default [{
     ]
   },
   {
+    path: '/manage_goods',
+    name: 'manage_goods',
+    meta: {
+      icon: 'md-basket',
+      title: '商品管理',
+      notCache: true
+    },
+    component: Main,
+    children: [{
+        path: 'goods_list_page',
+        name: 'goods_list_page',
+        meta: {
+          icon: 'ios-basket',
+          title: '商品列表',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/manage-goods/goods-list.vue')
+      },
+      {
+        path: 'goods_edit_page',
+        name: 'goods_edit_page',
+        meta: {
+          icon: 'md-add-circle',
+          title: '商品编辑',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/manage-goods/goods-edit.vue')
+      }
+    ]
+  },
+  {
     path: '/401',
     name: 'error_401',
     meta: {

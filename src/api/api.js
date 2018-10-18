@@ -135,7 +135,42 @@ const API = {
       url: '/queryIdCard/history',
       params: params
     })
-  }
+  },
+  // 查询所有商品
+  queryAllProducts(params) {
+    return request({
+      url: '/queryAllProducts',
+      params: params
+    })
+  },
+  // 获取千牛token
+  getQnToken(params) {
+    return request({
+      url: '/getQnToken',
+      params: params
+    })
+  },
+  // 新增商品
+  insertProduct(params) {
+    return request({
+      url: '/insertProduct',
+      params: params
+    })
+  },
+  // 编辑商品
+  alterProduct(params) {
+    return request({
+      url: '/alterProduct',
+      params: params
+    })
+  },
+  // 下架商品
+  cancelProduct(params) {
+    return request({
+      url: '/cancelProduct',
+      params: params
+    })
+  },
 }
 
 export default API
