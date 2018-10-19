@@ -70,45 +70,15 @@ export default {
             return h('div', [
               h(
                 'p',
-                {
-                  style: {
-                  },
-                  on: {
-                    click: () => {
-                      this.showLargeImgSrc = params.row.url
-                      this.visible = true
-                    }
-                  }
-                },
-                'VIP：' + params.row.vipPriceDetail.split(';')[0].split(':')[1]
+                'VIP：' + params.row.vipPrice
               ),
               h(
                 'p',
-                {
-                  style: {
-                  },
-                  on: {
-                    click: () => {
-                      this.showLargeImgSrc = params.row.url
-                      this.visible = true
-                    }
-                  }
-                },
-                '经销商：' + params.row.vipPriceDetail.split(';')[1].split(':')[1]
+                '经销商：' + params.row.dealerPrice
               ),
               h(
                 'p',
-                {
-                  style: {
-                  },
-                  on: {
-                    click: () => {
-                      this.showLargeImgSrc = params.row.url
-                      this.visible = true
-                    }
-                  }
-                },
-                '总代理：' + params.row.vipPriceDetail.split(';')[2].split(':')[1]
+                '总代理：' + params.row.proxyPrice
               )
             ])
           }
