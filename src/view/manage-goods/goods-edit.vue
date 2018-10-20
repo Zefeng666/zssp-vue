@@ -16,11 +16,11 @@
         </FormItem>
         <FormItem label="商品价格">
             VIP价格:
-            <Input v-model="formItem.vipPrice" placeholder="" style="width: 100px" /> 元
+            <Input v-model="formItem.vipPrice" placeholder="" style="width: 100px" /> 元/件 &nbsp;&nbsp;
             经销商价格:
-            <Input v-model="formItem.dealerPrice" placeholder="" style="width: 100px" /> 元
+            <Input v-model="formItem.dealerPrice" placeholder="" style="width: 100px" /> 元/件 &nbsp;&nbsp;
             总代理价格:
-            <Input v-model="formItem.proxyPrice" placeholder="" style="width: 100px" /> 元
+            <Input v-model="formItem.proxyPrice" placeholder="" style="width: 100px" /> 元/件
         </FormItem>
         <FormItem label="商品简介">
             <Input v-model="formItem.detail" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
@@ -98,7 +98,7 @@ export default {
     },
     handleUpload (file) {},
     uploadSuccess (response, file, fileList) {
-      this.formItem.url = 'http://7xwip7.com1.z0.glb.clouddn.com/' + response.key
+      this.formItem.url = 'http://image.tlong.tv/' + response.key
     },
     submit () {
       if (this.$route.query.productId) {
