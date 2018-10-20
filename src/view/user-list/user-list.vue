@@ -90,8 +90,7 @@
         v-model="editModalFlag"
         :mask-closable="false"
         width="800"
-        cancel-text='取消'
-        @on-ok="alterUser(3)">
+        cancel-text='取消'>
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">用户名:</span>
           <Input v-model="editUserObj.username" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditUsername"/>
@@ -113,21 +112,23 @@
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">设置代理:</span>
           <RadioGroup v-model="whichProxy">
-              <Radio label="1">县区代理</Radio>
-              <Radio label="2">城市代理</Radio>
+              <Radio label="1" :disabled="isEditProxy">县区代理</Radio>
+              <Radio label="2" :disabled="isEditProxy">城市代理</Radio>
           </RadioGroup>
+          <a v-show="isEditProxy" @click="isEditProxy = false">修改</a>
+          <a v-show="!isEditProxy" @click="alterUser(3)">保存</a>
         </p>
         <p>
           省：
-          <Select v-model="proxyProvince" style="width:120px" clearable>
+          <Select v-model="proxyProvince" style="width:120px" clearable :disabled="isEditProxy">
             <Option v-for="(value, key) in addressList['86']" :value="key" :key="key">{{ value }}</Option>
           </Select>&nbsp;&nbsp;
           市：
-          <Select v-model="proxyCity" style="width:120px" clearable>
+          <Select v-model="proxyCity" style="width:120px" clearable :disabled="isEditProxy">
             <Option v-for="(value, key) in addressList[this.proxyProvince]" :value="key" :key="key">{{ value }}</Option>
           </Select>&nbsp;&nbsp;
           区：
-          <Select v-model="proxyArea" style="width:120px" clearable :disabled="whichProxy == '2'">
+          <Select v-model="proxyArea" style="width:120px" clearable :disabled="isEditProxy || whichProxy == '2'">
             <Option v-for="(value, key) in addressList[this.proxyCity]" :value="key" :key="key">{{ value }}</Option>
           </Select>
         </p>
@@ -158,6 +159,7 @@ export default {
       isEditUsername: true,
       isEditPhone: true,
       isEditAmount: true,
+      isEditProxy: true,
       userListLoading: true,
       userList: [],
       queryObj: {},
