@@ -90,7 +90,8 @@
         v-model="editModalFlag"
         :mask-closable="false"
         width="800"
-        cancel-text='取消'>
+        cancel-text='取消'
+        @on-ok="alterUser(3)">
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">用户名:</span>
           <Input v-model="editUserObj.username" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditUsername"/>
@@ -103,11 +104,32 @@
           <a v-show="isEditPhone" @click="isEditPhone = false">修改</a>
           <a v-show="!isEditPhone" @click="alterUser(0)">保存</a>
         </p>
-        <p>
+        <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">增减积分:</span>
           <Input v-model="changeAmount" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditAmount" />
           <a v-show="isEditAmount" @click="isEditAmount = false">修改</a>
           <a v-show="!isEditAmount" @click="alterUser(2)">保存</a>
+        </p>
+        <p style="margin-bottom: 10px;">
+          <span style="display: inline-block; width: 60px;">设置代理:</span>
+          <RadioGroup v-model="whichProxy">
+              <Radio label="1">县区代理</Radio>
+              <Radio label="2">城市代理</Radio>
+          </RadioGroup>
+        </p>
+        <p>
+          省：
+          <Select v-model="proxyProvince" style="width:120px" clearable>
+            <Option v-for="(value, key) in addressList['86']" :value="key" :key="key">{{ value }}</Option>
+          </Select>&nbsp;&nbsp;
+          市：
+          <Select v-model="proxyCity" style="width:120px" clearable>
+            <Option v-for="(value, key) in addressList[this.proxyProvince]" :value="key" :key="key">{{ value }}</Option>
+          </Select>&nbsp;&nbsp;
+          区：
+          <Select v-model="proxyArea" style="width:120px" clearable :disabled="whichProxy == '2'">
+            <Option v-for="(value, key) in addressList[this.proxyCity]" :value="key" :key="key">{{ value }}</Option>
+          </Select>
         </p>
 
     </Modal>
@@ -125,6 +147,10 @@ export default {
       province: '',
       city: '',
       area: '',
+      proxyProvince: '',
+      proxyCity: '',
+      proxyArea: '',
+      whichProxy: '1',
       searchType: '用户名',
       modalCityFlag: false,
       modalFlag: false,
@@ -455,6 +481,12 @@ export default {
       } else if (type === 2) {
         text = this.changeAmount
         this.isEditAmount = true
+      } else if (type === 3) {
+        if (this.whichProxy === '2') {
+          text = this.proxyProvince + '-' + this.proxyCity
+        } else {
+          text = this.proxyProvince + '-' + this.proxyCity + '-' + this.proxyArea
+        }
       }
       this.$api
         .alterUser({
