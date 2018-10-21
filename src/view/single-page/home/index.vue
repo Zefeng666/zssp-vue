@@ -18,7 +18,7 @@
           </Card>
         </i-col>
         <i-col span="12" class="padding-left-10">
-          <Card @click.native="goTo('/user_list/user_list_page')">
+          <Card @click.native="goTo('/user_list/user_new_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
               新升级用户
