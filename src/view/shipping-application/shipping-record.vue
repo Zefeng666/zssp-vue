@@ -30,14 +30,6 @@ export default {
             return h('div', params.row.user.username)
           }
         },
-        // {
-        //   title: '积分',
-        //   key: 'point',
-        //   width: 80,
-        //   render: (h, params) => {
-        //     return h('div', params.row.user.withdrawAmount)
-        //   }
-        // },
         {
           title: '申请数量',
           width: 100,
@@ -62,13 +54,6 @@ export default {
             return h('div', d.toLocaleString())
           }
         },
-        // {
-        //   title: '代理区县',
-        //   key: 'agencyDistrict',
-        //   render: (h, params) => {
-        //     return h('div', params.row.user.proxyArea)
-        //   }
-        // },
         {
           title: '联系人',
           key: 'contact',
@@ -108,6 +93,41 @@ export default {
               return h('div', '未同意')
             }
           }
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 80,
+          align: 'center',
+          render: (h, params) => {
+            let showBtn = false
+            if (params.row.order.isAudit === 1) {
+              showBtn = true
+            } else {
+              showBtn = false
+            }
+            return h('div', [
+              h(
+                'Button',
+                {
+                  props: {
+                    type: 'primary',
+                    size: 'small',
+                    disabled: showBtn
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.auditOrder(params.row.order.id, 1)
+                    }
+                  }
+                },
+                '补发'
+              )
+            ])
+          }
         }
       ],
       orderData: []
@@ -128,6 +148,21 @@ export default {
             this.orderData = data.data.items
             this.totalCount = data.data.totalCount
             this.orderListLoading = false
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    auditOrder (id, audit) {
+      this.$api
+        .auditOrder({
+          id: id,
+          audit: audit
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.$Message.success('处理成功')
+            this.queryOrder()
           } else {
             console.log(data)
           }
