@@ -42,8 +42,7 @@ export default {
           title: '申请时间',
           key: 'applicationTime',
           render: (h, params) => {
-            let d = new Date(params.row.order.createTime)
-            return h('div', d.toLocaleString())
+            return h('div', params.row.order.createTime.substring(0, 10) + ' ' + params.row.order.createTime.substring(11, 16))
           }
         },
         {

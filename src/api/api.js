@@ -73,6 +73,13 @@ const API = {
       params: params
     })
   },
+  // 查询用户订单
+  queryOrderByUid(params) {
+    return request({
+      url: '/queryOrderByUid',
+      params: params
+    })
+  },
   // 发货申请
   queryOrder (params) {
     return request({

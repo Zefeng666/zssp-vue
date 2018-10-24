@@ -289,8 +289,7 @@ export default {
           title: '时间',
           key: 'createTime',
           render: (h, params) => {
-            let d = new Date(params.row.createTime)
-            return h('div', d.toLocaleString())
+            return h('div', params.row.createTime.substring(0, 10) + ' ' + params.row.createTime.substring(11, 16))
           }
         }
       ],

@@ -57,6 +57,10 @@
             <TabPane label="银行卡">
               <Table :columns='cardColumns' :data='cardData' size='small'></Table>
             </TabPane>
+            <TabPane label="订单记录">
+              <Table :columns='ordersColumns' :data='userOrders' size='small'></Table>
+              <Page style="margin-top: 10px;" :total="OrdersTotal" :page-size="8" size="small" show-total @on-change="changeOrderPageSmall" />
+            </TabPane>
             <TabPane label="收益明细">
               <Table :columns='integralsColumns' :data='userIntegrals' size='small'></Table>
               <Page style="margin-top: 10px;" :total="integralsTotal" :page-size="8" size="small" show-total @on-change="changePageSmall" />
@@ -367,13 +371,88 @@ export default {
           title: '时间',
           key: 'createTime',
           render: (h, params) => {
-            let d = new Date(params.row.createTime)
-            return h('div', d.toLocaleString())
+            return h('div', params.row.createTime.substring(0, 10) + ' ' + params.row.createTime.substring(11, 16))
+          }
+        }
+      ],
+      ordersColumns: [
+        {
+          title: '序号',
+          key: 'index',
+          width: 70,
+          align: 'center',
+          render: (h, params) => {
+            return h('div', params.row._index + 1)
+          }
+        },
+        {
+          title: '申请数量',
+          width: 100,
+          key: 'applicationNumber',
+          render: (h, params) => {
+            return h('div', params.row.order.quantity + '件')
+          }
+        },
+        {
+          title: '申请时间',
+          key: 'applicationTime',
+          render: (h, params) => {
+            return h('div', params.row.order.createTime.substring(0, 10) + ' ' + params.row.order.createTime.substring(11, 16))
+          }
+        },
+        // {
+        //   title: '审核时间',
+        //   key: 'auditTime',
+        //   render: (h, params) => {
+        //     if (params.row.order.auditTime)
+        //     return h('div', params.row.order.auditTime.substring(0, 10) + ' ' + params.row.order.auditTime.substring(11, 16))
+        //   }
+        // },
+        {
+          title: '联系人',
+          key: 'contact',
+          width: 80,
+          render: (h, params) => {
+            return h('div', params.row.userAddress.contact)
+          }
+        },
+        {
+          title: '联系电话',
+          key: 'phone',
+          render: (h, params) => {
+            return h('div', params.row.userAddress.mobile)
+          }
+        },
+        {
+          title: '发货地址',
+          key: 'deliveryAddress',
+          render: (h, params) => {
+            return h(
+              'div',
+              params.row.userAddress.province +
+                params.row.userAddress.city +
+                params.row.userAddress.area +
+                params.row.userAddress.detail
+            )
+          }
+        },
+        {
+          title: '审核',
+          key: 'agree',
+          width: 80,
+          render: (h, params) => {
+            if (params.row.order.isAudit === 1) {
+              return h('div', '同意')
+            } else {
+              return h('div', '未同意')
+            }
           }
         }
       ],
       userIntegrals: [],
-      integralsTotal: 0
+      integralsTotal: 0,
+      userOrders: [],
+      OrdersTotal: 0
     }
   },
   methods: {
@@ -438,6 +517,7 @@ export default {
             this.addressData = data.data.userInfo.userAddress
             this.cardData = data.data.userInfo.userBankCard
             this.queryIntegrals()
+            this.queryOrderByUid()
           } else {
             console.log(data)
           }
@@ -467,6 +547,22 @@ export default {
           if (data.code === 200) {
             this.userIntegrals = data.data.items
             this.integralsTotal = data.data.totalCount
+          } else {
+            console.log(data)
+          }
+        })
+    },
+    queryOrderByUid (page) {
+      this.$api
+        .queryOrderByUid({
+          uid: this.viewUserObj.user.uid,
+          pageNo: page || 1,
+          pageSize: 8
+        })
+        .then(data => {
+          if (data.code === 200) {
+            this.userOrders = data.data.items
+            this.OrdersTotal = data.data.totalCount
           } else {
             console.log(data)
           }
@@ -524,6 +620,9 @@ export default {
     },
     changePageSmall (page) {
       this.queryIntegrals(page)
+    },
+    changeOrderPageSmall (page) {
+      this.queryOrderByUid(page)
     },
     cancelCity () {
     },
