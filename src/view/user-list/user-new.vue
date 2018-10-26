@@ -120,6 +120,10 @@ export default {
           }
         },
         {
+          title: '推荐人',
+          key: 'recommendUser'
+        },
+        {
           title: '经销商',
           key: 'recentDealer'
         },
