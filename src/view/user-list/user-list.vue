@@ -483,7 +483,6 @@ export default {
       this.isShowPage = false
       let queryObj = {}
       if (type === 2) {
-        queryObj.username = ''
         queryObj.province = this.addressList['86'][this.province]
         queryObj.city = this.addressList[this.province][this.city] || ''
         this.city ? queryObj.area = this.addressList[this.city][this.area] : queryObj.area = ''
@@ -496,11 +495,11 @@ export default {
         .queryUserSearch(queryObj)
         .then(data => {
           if (data.code === 200) {
-            if (data.data.user === null) {
+            if (JSON.stringify(data.data.users) === '[]') {
               this.$Message.warning('用户不存在')
             } else {
-              this.userList = []
-              this.userList.push(data.data.user)
+              this.userList = data.data.users
+              console.log(this.userList)
             }
             this.userListLoading = false
           } else {
