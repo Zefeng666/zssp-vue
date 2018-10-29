@@ -584,8 +584,14 @@ export default {
         this.isEditAmount = true
       } else if (type === 3) {
         if (this.whichProxy === '2') {
+          if (this.proxyProvince === '' || this.proxyCity === '') {
+            return this.$Message.warning('请填写完整的代理地区')
+          }
           text = this.proxyProvince + '-' + this.proxyCity
         } else {
+          if (this.proxyProvince === '' || this.proxyCity === '' || this.proxyArea === '') {
+            return this.$Message.warning('请填写完整的代理地区')
+          }
           text = this.proxyProvince + '-' + this.proxyCity + '-' + this.proxyArea
         }
       }
