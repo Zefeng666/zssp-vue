@@ -94,7 +94,8 @@
         v-model="editModalFlag"
         :mask-closable="false"
         width="800"
-        cancel-text='取消'>
+        okText='关闭'
+        cancel-text=''>
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">用户名:</span>
           <Input v-model="editUserObj.username" placeholder="Enter something..." style="width: 200px; margin-right: 10px;" :disabled="isEditUsername"/>
@@ -587,12 +588,12 @@ export default {
           if (this.proxyProvince === '' || this.proxyCity === '') {
             return this.$Message.warning('请填写完整的代理地区')
           }
-          text = this.proxyProvince + '-' + this.proxyCity
+          text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.province][this.proxyCity]
         } else {
           if (this.proxyProvince === '' || this.proxyCity === '' || this.proxyArea === '') {
             return this.$Message.warning('请填写完整的代理地区')
           }
-          text = this.proxyProvince + '-' + this.proxyCity + '-' + this.proxyArea
+          text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.province][this.proxyCity] + '-' + this.addressList[this.city][this.proxyArea]
         }
       }
       this.$api
