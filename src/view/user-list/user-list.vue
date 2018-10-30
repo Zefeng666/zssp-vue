@@ -588,13 +588,13 @@ export default {
           if (this.proxyProvince === '' || this.proxyCity === '') {
             return this.$Message.warning('请填写完整的代理地区')
           }
-          text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.province][this.proxyCity]
+          text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.proxyProvince][this.proxyCity]
           this.isEditProxy = true
         } else {
           if (this.proxyProvince === '' || this.proxyCity === '' || this.proxyArea === '') {
             return this.$Message.warning('请填写完整的代理地区')
           }
-          text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.province][this.proxyCity] + '-' + this.addressList[this.city][this.proxyArea]
+          text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.proxyProvince][this.proxyCity] + '-' + this.addressList[this.proxyCity][this.proxyArea]
           this.isEditProxy = true
         }
       }
