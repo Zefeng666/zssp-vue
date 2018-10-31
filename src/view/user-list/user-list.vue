@@ -457,17 +457,18 @@ export default {
       userIntegrals: [],
       integralsTotal: 0,
       userOrders: [],
-      OrdersTotal: 0
+      OrdersTotal: 0,
+      pageNum: 1
     }
   },
   methods: {
     showModal () {
       this.modalVisible = true
     },
-    queryUser (page) {
+    queryUser () {
       this.$api
         .queryUser({
-          pageNo: page || 1
+          pageNo: this.pageNum
         })
         .then(data => {
           if (data.code === 200) {
@@ -607,6 +608,7 @@ export default {
         .then(data => {
           if (data.code === 200) {
             this.$Message.success('修改成功!')
+            this.queryUser()
           } else {
             this.$Message.error(data.message)
           }
@@ -628,7 +630,8 @@ export default {
     },
     changePage (page) {
       this.userListLoading = true
-      this.queryUser(page)
+      this.pageNum = page
+      this.queryUser()
     },
     changePageSmall (page) {
       this.queryIntegrals(page)
