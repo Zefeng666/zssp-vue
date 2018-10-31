@@ -612,6 +612,9 @@ export default {
           } else {
             this.$Message.error(data.message)
           }
+          if (type === 3) { this.proxyProvince = '' }
+          this.proxyCity = ''
+          this.proxyArea = ''
         })
     },
     deleteUser (uid) {
