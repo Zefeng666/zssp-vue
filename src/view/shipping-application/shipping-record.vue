@@ -92,41 +92,6 @@ export default {
               return h('div', '未同意')
             }
           }
-        },
-        {
-          title: '操作',
-          key: 'action',
-          width: 80,
-          align: 'center',
-          render: (h, params) => {
-            let showBtn = false
-            if (params.row.order.isAudit === 1) {
-              showBtn = true
-            } else {
-              showBtn = false
-            }
-            return h('div', [
-              h(
-                'Button',
-                {
-                  props: {
-                    type: 'primary',
-                    size: 'small',
-                    disabled: showBtn
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.auditOrder(params.row.order.id, 1)
-                    }
-                  }
-                },
-                '补发'
-              )
-            ])
-          }
         }
       ],
       orderData: []
@@ -147,21 +112,6 @@ export default {
             this.orderData = data.data.items
             this.totalCount = data.data.totalCount
             this.orderListLoading = false
-          } else {
-            console.log(data)
-          }
-        })
-    },
-    auditOrder (id, audit) {
-      this.$api
-        .auditOrder({
-          id: id,
-          audit: audit
-        })
-        .then(data => {
-          if (data.code === 200) {
-            this.$Message.success('处理成功')
-            this.queryOrder()
           } else {
             console.log(data)
           }
