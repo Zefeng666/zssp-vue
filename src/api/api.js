@@ -101,6 +101,27 @@ const API = {
       params: params
     })
   },
+  // 报单审核列表
+  queryUpgradeOrder(params) {
+    return request({
+      url: '/queryUpgradeOrder',
+      params: params
+    })
+  },
+  // 报单审核历史
+  queryUpgradeOrderHistory(params) {
+    return request({
+      url: '/queryUpgradeOrder/history',
+      params: params
+    })
+  },
+  // 审核报单
+  auditUpgradeOrder(params) {
+    return request({
+      url: '/auditUpgradeOrder',
+      params: params
+    })
+  },
   // 提现申请
   queryWithdraw (params) {
     return request({

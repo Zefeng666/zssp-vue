@@ -14,14 +14,10 @@
             </Upload>
             <img v-show="formItem.url" class="goods-img" :src="formItem.url">
         </FormItem>
-        <!-- <FormItem label="商品价格">
-            VIP价格:
-            <Input v-model="formItem.vipPrice" placeholder="" style="width: 100px" /> 元/件 &nbsp;&nbsp;
-            经销商价格:
-            <Input v-model="formItem.dealerPrice" placeholder="" style="width: 100px" /> 元/件 &nbsp;&nbsp;
-            总代理价格:
-            <Input v-model="formItem.proxyPrice" placeholder="" style="width: 100px" /> 元/件
-        </FormItem> -->
+        <FormItem label="商品价格">
+            价格:
+            <Input v-model="formItem.price" placeholder="" style="width: 100px" /> 元/瓶
+        </FormItem>
         <FormItem label="商品简介">
             <Input v-model="formItem.detail" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
         </FormItem>
@@ -42,7 +38,8 @@ export default {
       formItem: {
         name: '',
         url: '',
-        detail: ''
+        detail: '',
+        price: ''
       }
     }
   },

@@ -104,6 +104,50 @@ export default [{
         },
         component: () =>
           import('@/view/shipping-application/shipping-record.vue')
+      },
+      {
+        path: 'shipping_application_page',
+        name: 'shipping_application_page',
+        meta: {
+          icon: 'md-albums',
+          title: '报单审核',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/shipping-application/upgrade-order.vue')
+      },
+    ]
+  },
+  {
+    path: '/shipping_application',
+    name: 'shipping_application',
+    meta: {
+      icon: 'ios-cart',
+      title: '报单中心',
+      notCache: true
+    },
+    component: Main,
+    children: [{
+        path: 'upgrade_order_page',
+        name: 'upgrade_order_page',
+        meta: {
+          icon: 'md-albums',
+          title: '报单审核',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/upgrade-order/upgrade-order.vue')
+      },
+      {
+        path: 'upgrade_record_page',
+        name: 'upgrade_record_page',
+        meta: {
+          icon: 'ios-list-box',
+          title: '报单记录',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/upgrade-record/upgrade-record.vue')
       }
     ]
   },

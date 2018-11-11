@@ -63,26 +63,10 @@ export default {
           title: '简介',
           key: 'detail'
         },
-        // {
-        //   title: '拿货价格',
-        //   key: 'price',
-        //   render: (h, params) => {
-        //     return h('div', [
-        //       h(
-        //         'p',
-        //         'VIP：' + params.row.vipPrice
-        //       ),
-        //       h(
-        //         'p',
-        //         '经销商：' + params.row.dealerPrice
-        //       ),
-        //       h(
-        //         'p',
-        //         '总代理：' + params.row.proxyPrice
-        //       )
-        //     ])
-        //   }
-        // },
+        {
+          title: '拿货价格',
+          key: 'price'
+        },
         {
           title: '操作',
           key: 'action',
