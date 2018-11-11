@@ -192,11 +192,15 @@ export default {
           key: 'vipLevel',
           render: (h, params) => {
             if (params.row.vipLevel === 0) {
-              return h('div', 'VIP')
+              return h('div', '分享大使')
             } else if (params.row.vipLevel === 1) {
               return h('div', '经销商')
             } else if (params.row.vipLevel === 2) {
-              return h('div', '总代理')
+              return h('div', '区县合伙人')
+            } else if (params.row.vipLevel === 3) {
+              return h('div', '城市合伙人')
+            } else if (params.row.vipLevel === 4) {
+              return h('div', '分公司')
             } else if (params.row.vipLevel === -1) {
               return h('div', '普通用户')
             }
@@ -205,14 +209,6 @@ export default {
         {
           title: '推荐人',
           key: 'recommendUser'
-        },
-        {
-          title: '经销商',
-          key: 'recentDealer'
-        },
-        {
-          title: '总代理',
-          key: 'recentProxy'
         },
         {
           title: '代理地区',
