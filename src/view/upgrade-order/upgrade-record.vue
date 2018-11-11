@@ -49,8 +49,7 @@ export default {
           title: '审核时间',
           key: 'auditTime',
           render: (h, params) => {
-            let d = new Date(params.row.order.auditTime)
-            return h('div', d.toLocaleString())
+            return h('div', params.row.order.auditTime.substring(0, 10) + ' ' + params.row.order.auditTime.substring(11, 16))
           }
         },
         {
@@ -86,48 +85,13 @@ export default {
           key: 'agree',
           width: 80,
           render: (h, params) => {
-            if (params.row.order.isAudit === 1) {
+            if (params.row.order.isUpgrade === 1) {
               return h('div', '同意')
             } else {
               return h('div', '未同意')
             }
           }
         }
-        // {
-        //   title: '操作',
-        //   key: 'action',
-        //   width: 80,
-        //   align: 'center',
-        //   render: (h, params) => {
-        //     let showBtn = false
-        //     if (params.row.order.isAudit === 1) {
-        //       showBtn = true
-        //     } else {
-        //       showBtn = false
-        //     }
-        //     return h('div', [
-        //       h(
-        //         'Button',
-        //         {
-        //           props: {
-        //             type: 'primary',
-        //             size: 'small',
-        //             disabled: showBtn
-        //           },
-        //           style: {
-        //             marginRight: '5px'
-        //           },
-        //           on: {
-        //             click: () => {
-        //               this.auditOrder(params.row.order.id, 1)
-        //             }
-        //           }
-        //         },
-        //         '补发'
-        //       )
-        //     ])
-        //   }
-        // }
       ],
       orderData: []
     }

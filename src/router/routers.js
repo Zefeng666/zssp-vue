@@ -111,7 +111,7 @@ export default [{
     path: '/upgrade_order',
     name: 'upgrade_order',
     meta: {
-      icon: 'ios-cart',
+      icon: 'md-document',
       title: '报单中心',
       notCache: true
     },

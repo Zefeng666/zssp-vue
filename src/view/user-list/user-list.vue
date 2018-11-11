@@ -119,6 +119,7 @@
           <RadioGroup v-model="whichProxy">
               <Radio label="1" :disabled="isEditProxy">县区代理</Radio>
               <Radio label="2" :disabled="isEditProxy">城市代理</Radio>
+              <Radio label="3" :disabled="isEditProxy">省级代理</Radio>
           </RadioGroup>
           <a v-show="isEditProxy" @click="isEditProxy = false">修改</a>
           <a v-show="!isEditProxy" @click="alterUser(3)">保存</a>
@@ -129,11 +130,11 @@
             <Option v-for="(value, key) in addressList['86']" :value="key" :key="key">{{ value }}</Option>
           </Select>&nbsp;&nbsp;
           市：
-          <Select v-model="proxyCity" style="width:120px" clearable :disabled="isEditProxy">
+          <Select v-model="proxyCity" style="width:120px" clearable :disabled="isEditProxy || whichProxy == '3'">
             <Option v-for="(value, key) in addressList[this.proxyProvince]" :value="key" :key="key">{{ value }}</Option>
           </Select>&nbsp;&nbsp;
           区：
-          <Select v-model="proxyArea" style="width:120px" clearable :disabled="isEditProxy || whichProxy == '2'">
+          <Select v-model="proxyArea" style="width:120px" clearable :disabled="isEditProxy || whichProxy == '3' || whichProxy == '2'">
             <Option v-for="(value, key) in addressList[this.proxyCity]" :value="key" :key="key">{{ value }}</Option>
           </Select>
         </p>
@@ -586,6 +587,12 @@ export default {
             return this.$Message.warning('请填写完整的代理地区')
           }
           text = this.addressList['86'][this.proxyProvince] + '-' + this.addressList[this.proxyProvince][this.proxyCity]
+          this.isEditProxy = true
+        } else if (this.whichProxy === '3') {
+          if (this.proxyProvince === '') {
+            return this.$Message.warning('请填写完整的代理地区')
+          }
+          text = this.addressList['86'][this.proxyProvince]
           this.isEditProxy = true
         } else {
           if (this.proxyProvince === '' || this.proxyCity === '' || this.proxyArea === '') {
