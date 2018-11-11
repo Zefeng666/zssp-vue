@@ -108,8 +108,8 @@ export default [{
     ]
   },
   {
-    path: '/shipping_application',
-    name: 'shipping_application',
+    path: '/upgrade_order',
+    name: 'upgrade_order',
     meta: {
       icon: 'ios-cart',
       title: '报单中心',
