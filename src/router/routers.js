@@ -104,18 +104,7 @@ export default [{
         },
         component: () =>
           import('@/view/shipping-application/shipping-record.vue')
-      },
-      {
-        path: 'shipping_application_page',
-        name: 'shipping_application_page',
-        meta: {
-          icon: 'md-albums',
-          title: '报单审核',
-          notCache: true
-        },
-        component: () =>
-          import('@/view/shipping-application/upgrade-order.vue')
-      },
+      }
     ]
   },
   {
@@ -147,7 +136,7 @@ export default [{
           notCache: true
         },
         component: () =>
-          import('@/view/upgrade-record/upgrade-record.vue')
+          import('@/view/upgrade-order/upgrade-record.vue')
       }
     ]
   },
