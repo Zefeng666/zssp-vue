@@ -104,6 +104,17 @@ export default [{
         },
         component: () =>
           import('@/view/shipping-application/shipping-record.vue')
+      },
+      {
+        path: 'offline_order_page',
+        name: 'offline_order_page',
+        meta: {
+          icon: 'ios-list-box',
+          title: '线下支付申请',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/shipping-application/offline-order.vue')
       }
     ]
   },
