@@ -443,16 +443,16 @@ export default {
           }
         },
         {
-          title: '审核',
-          key: 'agree',
+          title: '状态',
+          key: 'status',
           width: 80,
           render: (h, params) => {
-            if (params.row.order.isAudit === 1) {
-              return h('div', '同意')
-            } else if (params.row.order.isAudit === 2) {
-              return h('div', '未同意')
+            if (params.row.order.orderStatus === 1) {
+              return h('div', '待发货')
+            } else if (params.row.order.orderStatus === 2) {
+              return h('div', '已发货')
             } else {
-              return h('div', '待审核')
+              return h('div', '待支付')
             }
           }
         }
