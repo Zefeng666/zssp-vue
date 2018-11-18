@@ -5,7 +5,7 @@
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
         <div class="logo-con">
           <!-- <img v-show="!collapsed" :src="maxLogo" key="max-logo" /> -->
-          <span v-show="!collapsed" class="text-logo">销售管理系统</span>
+          <span v-show="!collapsed" class="text-logo">壮乡能量管理系统</span>
           <!-- <img v-show="collapsed" :src="minLogo" key="min-logo" /> -->
         </div>
       </side-menu>
