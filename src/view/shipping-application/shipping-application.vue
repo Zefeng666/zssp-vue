@@ -37,6 +37,13 @@ export default {
           }
         },
         {
+          title: '支付金额',
+          key: 'applicationMoney',
+          render: (h, params) => {
+            return h('div', params.row.order.paidFee)
+          }
+        },
+        {
           title: '申请时间',
           key: 'applicationTime',
           render: (h, params) => {
