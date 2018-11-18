@@ -449,8 +449,10 @@ export default {
           render: (h, params) => {
             if (params.row.order.isAudit === 1) {
               return h('div', '同意')
-            } else {
+            } else if (params.row.order.isAudit === 2) {
               return h('div', '未同意')
+            } else {
+              return h('div', '待审核')
             }
           }
         }
