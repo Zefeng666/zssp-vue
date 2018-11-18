@@ -498,8 +498,9 @@ export default {
         .queryUserSearch(queryObj)
         .then(data => {
           if (data.code === 200) {
-            if (JSON.stringify(data.data.users) === '[]') {
+            if (JSON.stringify(data.data.users) === '[]' || data.data.users[0] === null) {
               this.$Message.warning('用户不存在')
+              this.userList = []
             } else {
               this.userList = data.data.users
               console.log(this.userList)
