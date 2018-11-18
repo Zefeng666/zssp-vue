@@ -212,6 +212,10 @@ export default {
           key: 'recommendUser'
         },
         {
+          title: '二级推荐人',
+          key: 'reRecommendUser'
+        },
+        {
           title: '代理地区',
           key: 'proxyArea'
         },
