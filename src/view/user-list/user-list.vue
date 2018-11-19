@@ -95,6 +95,7 @@
         :mask-closable="false"
         width="800"
         okText='关闭'
+        @on-ok='closeModel'
         cancel-text=''>
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">用户名:</span>
@@ -117,11 +118,11 @@
         <p style="margin-bottom: 10px;">
           <span style="display: inline-block; width: 60px;">设置代理:</span>
           <RadioGroup v-model="whichProxy">
-              <Radio label="1" :disabled="isEditProxy">县区代理</Radio>
-              <Radio label="2" :disabled="isEditProxy">城市代理</Radio>
-              <Radio label="3" :disabled="isEditProxy">省级代理</Radio>
+              <Radio label="1" :disabled="isEditProxy || editUserObj.vipLevel !== 2">县区代理</Radio>
+              <Radio label="2" :disabled="isEditProxy || editUserObj.vipLevel !== 3">城市代理</Radio>
+              <Radio label="3" :disabled="isEditProxy || editUserObj.vipLevel !== 4">省级代理</Radio>
           </RadioGroup>
-          <a v-show="isEditProxy" @click="isEditProxy = false">修改</a>
+          <a v-show="isEditProxy" @click="changeProxy()">修改</a>
           <a v-show="!isEditProxy" @click="alterUser(3)">保存</a>
         </p>
         <p>
@@ -527,6 +528,9 @@ export default {
             this.cardData = data.data.userInfo.userBankCard
             this.queryIntegrals()
             this.queryOrderByUid()
+            if (this.editUserObj.vipLevel === 2 || this.editUserObj.vipLevel === 3 || this.editUserObj.vipLevel === 4) {
+              this.whichProxy = String(this.editUserObj.vipLevel - 1)
+            }
           } else {
             console.log(data)
           }
@@ -658,6 +662,19 @@ export default {
     },
     showType (name) {
       this.searchType = name
+    },
+    changeProxy () {
+      if (this.editUserObj.vipLevel === 2 || this.editUserObj.vipLevel === 3 || this.editUserObj.vipLevel === 4) {
+        this.isEditProxy = false
+      } else {
+        this.$Message.error('该用户等级不能设置代理地区')
+      }
+    },
+    closeModel () {
+      this.isEditUsername = true
+      this.isEditPhone = true
+      this.isEditAmount = true
+      this.isEditProxy = true
     }
   },
   created () {
