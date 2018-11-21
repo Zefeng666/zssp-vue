@@ -1,7 +1,7 @@
 <template>
   <div>
     <Row style="margin-bottom: 10px;" :gutter="10">
-        <i-col span="12" class="padding-left-10">
+        <i-col span="8" class="padding-left-10">
           <Card @click.native="goTo('/user_list/user_list_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
@@ -17,7 +17,7 @@
             </Row>
           </Card>
         </i-col>
-        <i-col span="12" class="padding-left-10">
+        <i-col span="8" class="padding-left-10">
           <Card @click.native="goTo('/user_list/user_new_page')">
             <p slot="title">
               <Icon type="paintbucket"></Icon>
@@ -28,6 +28,22 @@
                 <count-to :end="indexDate.newUserCount || 0" count-class="count-text" unit-class="unit-class">
                   <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
                   <span class="slot-text" slot="right">&nbsp;人</span>
+                </count-to>
+              </div>
+            </Row>
+          </Card>
+        </i-col>
+        <i-col span="8" class="padding-left-10">
+          <Card @click.native="goTo('/shipping_application/offline_order_page')">
+            <p slot="title">
+              <Icon type="paintbucket"></Icon>
+              线下支付待确认
+            </p>
+            <Row type="flex" justify="center" align="middle" class="countto-page-row">
+              <div class="count-to-con">
+                <count-to :end="indexDate.offlineOrderCount || 0" count-class="count-text" unit-class="unit-class">
+                  <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
+                  <span class="slot-text" slot="right">&nbsp;个</span>
                 </count-to>
               </div>
             </Row>
@@ -59,7 +75,7 @@
             </p>
             <Row type="flex" justify="center" align="middle" class="countto-page-row">
               <div class="count-to-con">
-                <count-to :end="indexDate.shipCount || 0" count-class="count-text" unit-class="unit-class">
+                <count-to :end="indexDate.auditOrderCount || 0" count-class="count-text" unit-class="unit-class">
                   <!-- <span class="slot-text" slot="left">Total:&nbsp;</span> -->
                   <span class="slot-text" slot="right">&nbsp;个</span>
                 </count-to>

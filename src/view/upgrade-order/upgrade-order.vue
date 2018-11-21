@@ -50,13 +50,13 @@ export default {
             return h('div', params.row.order.createTime.substring(0, 10) + ' ' + params.row.order.createTime.substring(11, 16))
           }
         },
-        // {
-        //   title: '代理区县',
-        //   key: 'agencyDistrict',
-        //   render: (h, params) => {
-        //     return h('div', params.row.user.proxyArea)
-        //   }
-        // },
+        {
+          title: '申请代理地区',
+          key: 'agencyDistrict',
+          render: (h, params) => {
+            return h('div', params.row.order.address)
+          }
+        },
         {
           title: '货源状况',
           key: 'warn',
