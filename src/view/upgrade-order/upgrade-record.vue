@@ -52,13 +52,6 @@ export default {
             return h('div', params.row.order.createTime.substring(0, 10) + ' ' + params.row.order.createTime.substring(11, 16))
           }
         },
-        // {
-        //   title: '审核时间',
-        //   key: 'auditTime',
-        //   render: (h, params) => {
-        //     return h('div', params.row.order.auditTime.substring(0, 10) + ' ' + params.row.order.auditTime.substring(11, 16))
-        //   }
-        // },
         {
           title: '联系人',
           key: 'contact',

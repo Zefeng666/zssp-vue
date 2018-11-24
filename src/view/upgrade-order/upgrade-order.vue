@@ -58,17 +58,6 @@ export default {
           }
         },
         {
-          title: '货源状况',
-          key: 'warn',
-          render: (h, params) => {
-            if (params.row.order.isWarn === 0) {
-              return h('div', '正常')
-            } else if (params.row.order.isWarn === 1) {
-              return h('div', '不足')
-            }
-          }
-        },
-        {
           title: '收货人',
           key: 'contact',
           render: (h, params) => {
