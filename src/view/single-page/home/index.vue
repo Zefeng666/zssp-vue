@@ -1,6 +1,15 @@
 <template>
   <div>
     <Row style="margin-bottom: 10px;" :gutter="10">
+      <p class="index-notice">
+        <span>昨日分红：</span>
+        <span>区县分红 {{indexDate.areaPartnerDividend}}元</span>&nbsp;&nbsp;
+        <span>城市分红 {{indexDate.cityPartnerDividend}}元</span>&nbsp;&nbsp;
+        <span>分公司分红 {{indexDate.branchOfficeDividend}}元</span>&nbsp;&nbsp;
+        <span style="float: right;">合计：{{indexDate.areaPartnerDividend + indexDate.cityPartnerDividend + indexDate.branchOfficeDividend}}元</span>
+      </p>
+    </Row>
+    <Row style="margin-bottom: 10px;" :gutter="10">
         <i-col span="8" class="padding-left-10">
           <Card @click.native="goTo('/user_list/user_list_page')">
             <p slot="title">
@@ -186,5 +195,15 @@ export default {
 .unit-class{
   font-size: 30px;
   color: @baseColor;
+}
+.index-notice {
+  background-color: rgb(247, 237, 194);
+  border-radius: 5px;
+  font-size: 14px;
+  height: 36px;
+  line-height: 36px;
+  color: #f75f48;
+  margin: 0 5px 5px;
+  padding: 0 15px;
 }
 </style>
